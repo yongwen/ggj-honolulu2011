@@ -840,7 +840,7 @@ public class Roach extends GameObject implements Comparator {
 
     private void becomeZombie(Sprite s1)
     {
-    	double speed = 0.034 * ENEMY_SPEED * 0.3f; 
+    	double speed = 0.034 * ENEMY_SPEED * 0.6f; 
     	long animationDelay = 250;
     	
  		int charType = 1;
