@@ -238,8 +238,12 @@ public class Roach extends GameObject implements Comparator {
 	        int[] prop = (int[]) data.enemyListData[i];
 			int charType = prop[0];
 			int logicType = prop[1];
+			/*
 			double posx = prop[2] * 24;
 			double posy = prop[3] * 24;
+			*/
+			double posx = 17*24;
+			double posy = 10*24;
 			BufferedImage[] image = getImages("images/charset.png", 12, 7, charType*12, (charType*12)+11);
 
 			double ENEMY_SPEED = 1.0;
@@ -846,7 +850,7 @@ public class Roach extends GameObject implements Comparator {
 
 	public void killRoach(Sprite s2) {
 		s2.setActive(false);
-		// decrease roach counter
+		addCoin(200, s2.getX(), s2.getY());
 		
 		int size = ENEMY_GROUP.getSize();
 		Sprite[] s = ENEMY_GROUP.getSprites();

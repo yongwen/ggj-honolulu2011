@@ -40,7 +40,6 @@ public class PlayerEnemyCollision extends BasicCollisionGroup {
 		if (game.keyPressed(KeyEvent.VK_SPACE))
 		{
 			game.killRoach(s2);
-			game.addCoin(200, s2.getX(), s2.getY());
 		}
 	}
 }
