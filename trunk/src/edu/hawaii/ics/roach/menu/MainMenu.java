@@ -63,8 +63,6 @@ public class MainMenu extends GameObject {
 		
 		bsMusic.setBaseRenderer(new JavaLayerMp3Renderer());
 		playMusic("music/Intro.mp3");
-		
-		
 
 	}
 

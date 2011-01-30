@@ -267,7 +267,7 @@ public class Roach extends GameObject implements Comparator {
 			double posx = prop[2] * 24;
 			double posy = prop[3] * 24;
 
-			BufferedImage[] image = getImages("images/roach.png", 12, 1, charType*12, (charType*12)+11);
+			BufferedImage[] image = getImages("images/roach.png", 12, 2, charType*12, (charType*12)+11);
 
 			double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
 			switch (game.level) {
