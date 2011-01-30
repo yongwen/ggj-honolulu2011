@@ -180,7 +180,6 @@ public class Roach extends GameObject implements Comparator {
 		player = new RoachSprite(this, roachImage, 100, 100);
 		player.setID(PLAYER_ID);
 		player.getAnimationTimer().setDelay(PLAYER_ANIMATION);
-//		player.setAnimationFrame(null);
 		playerSpeed = PLAYER_SPEED;
 		PLAYER_GROUP.add(player);
 
@@ -222,19 +221,11 @@ public class Roach extends GameObject implements Comparator {
 				}
 			}
 
-			if (upper > 0) {
-				if (upper == 2) {
-					// exit point
-					exitPoint = new Sprite(upperImages[2], i*24, j*24);
-					exitPoint.setID(2);
-				} else if (upper == 7) {
-					// start point
-					player.setLocation(i*24, j*24);
-				} else {
-					Sprite item = new Sprite(upperImages[upper],i*24,j*24);
-					item.setID(upper);
-					UPPER_GROUP.add(item);
-				}
+			if (upper > 0) 
+			{
+				Sprite item = new Sprite(upperImages[upper],i*24,j*24);
+				item.setID(upper);
+				UPPER_GROUP.add(item);
 			}
         }
 
