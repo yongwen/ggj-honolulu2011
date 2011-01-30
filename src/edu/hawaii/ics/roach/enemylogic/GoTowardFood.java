@@ -118,7 +118,7 @@ public class GoTowardFood extends Enemy {
 		if(sprite == null) return false;
 		Boolean isActive = sprite.isActive();
 		int id = sprite.getID();
-		return (sprite != null && sprite.isActive() && sprite.getID() >= 1 && sprite.getID() <= 4);
+		return (sprite != null && sprite.isActive() && sprite.getID() >= 0 && sprite.getID() <= 4);
 	}
 	
 	private Sprite findClosestFood() {
