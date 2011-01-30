@@ -4,7 +4,6 @@ package edu.hawaii.ics.roach;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.event.*;
-import java.io.*;
 import java.util.Comparator;
 import java.util.ArrayList;
 
@@ -12,9 +11,6 @@ import java.util.ArrayList;
 import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.sprite.*;
-import com.golden.gamedev.object.background.*;
-import com.golden.gamedev.object.collision.*;
-import com.golden.gamedev.util.*;
 
 // ROACH GAME
 import edu.hawaii.ics.roach.enemylogic.*;
@@ -235,7 +231,9 @@ public class Roach extends GameObject implements Comparator {
 
 				} else {
 					// static block
-					Sprite block = new Sprite(lowerImages[lower],i*24,j*24);
+					Sprite block = (lower == 35) ?
+					   new RoachSpawn(this, lowerImages[lower],i*24,j*24)
+				       : new Sprite(lowerImages[lower],i*24,j*24);
 					block.setID(lower);
 					block.setLayer(isFloor(block) ? 1 : 0);
 					LOWER_GROUP.add(block);
@@ -250,72 +248,7 @@ public class Roach extends GameObject implements Comparator {
 				foodLeft++;
 			}
         }
-
-        // construct enemies
 		roachCount = 0;
-		int count = data.enemyListData.length;
-		for (int lv=0; lv<level; lv++)
-        for (int i=0;i < count;i++) {
-	        int[] prop = (int[]) data.enemyListData[i];
-			int charType = prop[0];
-			int logicType = prop[1];
-			
-			double posx = prop[2] * 24;
-			double posy = prop[3] * 24;
-
-			BufferedImage[] image = getImages("images/roach.png", 12, 2, charType*12, (charType*12)+11);
-
-			
-			switch (game.level) {
-				case 0: ENEMY_SPEED = ENEMY_SPEED_EASY; break; // easy
-				case 2: ENEMY_SPEED = ENEMY_SPEED_HARD; break; // hard
-			}
-
-			double speed = 0;
-			long animationDelay = 0;
-			switch (charType) {
-				// vamp
-				case 0: speed = 0.023 * ENEMY_SPEED; animationDelay = 300; break;
-				// witch
-				case 1: speed = 0.031 * ENEMY_SPEED; animationDelay = 170; break;
-				// bully
-				case 2: speed = 0.026 * ENEMY_SPEED; animationDelay = 250; break;
-				// light knight
-				case 3: speed = 0.027 * ENEMY_SPEED; animationDelay = 280; break;
-				// dwarf
-				case 4: speed = 0.021 * ENEMY_SPEED; animationDelay = 350; break;
-				// clown
-				case 5: speed = 0.029 * ENEMY_SPEED; animationDelay = 240; break;
-				// dragon
-				case 6: speed = 0.034 * ENEMY_SPEED; animationDelay = 250; break;
-			}
-
-			try {
-				Enemy enemy = null;
-				switch (logicType) {
-					// stand still
-					case 0: enemy = new Enemy(this, image, posx, posy, speed, animationDelay); break;
-					// left-right patrol
-					case 1: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// up-down patrol
-					case 2: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// turn left always
-					case 3: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// turn right always
-					case 4: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// turner
-					case 5: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// zombie
-					case 6: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-				}
-				if (enemy != null) {
-					ENEMY_GROUP.add(enemy);
-					roachCount++;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 	}
 
 	private MapData loadMap(int index) {
@@ -989,5 +922,18 @@ public class Roach extends GameObject implements Comparator {
 			playSound("sounds/scroll2.wav");
 		}
 	}
-	
+
+	public void addRoach(Enemy enemy) {
+            ENEMY_GROUP.add(enemy);
+            roachCount++;
+    }
+
+    public int numRoaches() {
+            return roachCount;
+    }
+
+    public int currentLevel() {
+            return level;
+    }
+
 }
