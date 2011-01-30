@@ -162,8 +162,8 @@ public class Roach extends GameObject implements Comparator {
 		playfield = new PlayField(backgr);
 		playfield.setComparator(this);
 
-		LOWER_GROUP = new SpriteGroup("Lower");
-//		LOWER_GROUP  = playfield.addGroup(new SpriteGroup("Lower"));
+//		LOWER_GROUP = new SpriteGroup("Lower");
+		LOWER_GROUP  = playfield.addGroup(new SpriteGroup("Lower"));
 		UPPER_GROUP  = playfield.addGroup(new SpriteGroup("Upper"));
 		ENEMY_GROUP  = playfield.addGroup(new SpriteGroup("Enemy"));
 		PLAYER_GROUP = playfield.addGroup(new SpriteGroup("Player"));
