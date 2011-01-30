@@ -600,17 +600,15 @@ public class Roach extends GameObject implements Comparator {
 			g.fillRect(getWidth()-20, 0, 20, getHeight());
 			playfield.render(g);
 			// draw title
-			font.drawString(g, title, GameFont.CENTER, 0, 30, getWidth());
+			font.drawString(g, title, GameFont.CENTER, 0, 0, getWidth());
 			// draw # of enemies left
-			font.drawString(g, "Roach: " + String.valueOf(roachCount), 250, 440);
-			// don't draw time, roaches will likely eat all food before time expires
-			// font.drawString(g, "Time:" + time, 455, 440);
-			// instead, display # of food left
-			font.drawString(g, "Food:" + foodLeft, 455, 440);
 			
-			
-			// draw score
-			font.drawString(g, "Score:" + String.valueOf(score), 10, 440);
+			String livesString= "Lives" + String.valueOf(life);
+			String roachesString = "Roaches:" + String.valueOf(roachCount);
+//			String foodString = "Food:" + String.valueOf(foodLeft);
+			String scoreString = "Score:" + String.valueOf(score);
+			String stats = livesString + ", " + roachesString + ", " + scoreString;
+			font.drawString(g, stats, 0, 450);
 			
 			
 			if (scroll > 0) {
@@ -646,7 +644,7 @@ public class Roach extends GameObject implements Comparator {
 
 
 		case WIN:
-			font.drawString(g, "CONGRATULIONS! YOU'VE WON!!", GameFont.CENTER, 0, 224, getWidth());
+			font.drawString(g, "CONGRATULATIONS! YOU'VE WON!!", GameFont.CENTER, 0, 224, getWidth());
 		break;
 		}
 	}
