@@ -39,10 +39,10 @@ public class RoachGame extends GameEngine {
 		// preload all images
 		getImage("images/title.png");
 		getImages("images/lowertileset.png", 10, 5);
-		getImages("images/uppertileset.png", 11, 1);
+		getImages("images/uppertileset.png", 5, 1);
 		getImages("images/coins.png", 3, 1);
 		getImages("images/player.png", 12, 1);
-		getImages("images/charset.png", 12, 7);
+		getImages("images/roach.png", 12, 1);
 		getImages("images/sparkle.png", 6, 1);
 		getImages("images/font.png", 16, 6);
 

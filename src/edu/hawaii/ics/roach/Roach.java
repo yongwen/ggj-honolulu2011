@@ -116,7 +116,7 @@ public class Roach extends GameObject implements Comparator {
 
 	public void initResources() {
 		lowerImages = getImages("images/lowertileset.png", 10, 5);
-		upperImages = getImages("images/uppertileset.png", 11, 1);
+		upperImages = getImages("images/uppertileset.png", 5, 1);
 		coins = getImages("images/coins.png", 3, 1);
 		roachImage = getImages("images/player.png", 12, 1);
 
@@ -244,7 +244,7 @@ public class Roach extends GameObject implements Comparator {
 			*/
 			double posx = 17*24;
 			double posy = 10*24;
-			BufferedImage[] image = getImages("images/charset.png", 12, 7, charType*12, (charType*12)+11);
+			BufferedImage[] image = getImages("images/roach.png", 12, 1, charType*12, (charType*12)+11);
 
 			double ENEMY_SPEED = 1.0;
 			switch (game.level) {

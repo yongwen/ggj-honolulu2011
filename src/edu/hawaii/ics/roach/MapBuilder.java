@@ -67,8 +67,8 @@ public class MapBuilder extends Game implements ListSelectionListener {
 		} );
 
 		lowerImages = getImages("images/lowertileset.png", 10, 5);
-		upperImages = getImages("images/uppertileset.png", 11, 1);
-		enemyImages = getImages("images/charset.png", 12, 7);
+		upperImages = getImages("images/uppertileset.png", 5, 1);
+		enemyImages = getImages("images/roach.png", 12, 1);
 
 		mainFrame = ((WindowedMode) bsGraphics).getFrame();
 		mainFrame.addWindowListener(new WindowAdapter() {
@@ -213,8 +213,8 @@ public class MapBuilder extends Game implements ListSelectionListener {
 		}
 
 		// check for start and end point
-		boolean startPoint = false;
-		boolean exitPoint = false;
+		boolean startPoint = true;
+		boolean exitPoint = true;
 		for (int j=0;j < 15;j++)
 		for (int i=0;i < 20;i++) {
 			if (upperTiles[i][j] == 2) {
