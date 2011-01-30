@@ -126,7 +126,7 @@ public class MainMenu extends GameObject {
 	}
 
 	public void render(Graphics2D g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.drawImage(titleImage, 10, 10, null);
 

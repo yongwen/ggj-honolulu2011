@@ -20,7 +20,7 @@ public class Instructions extends GameObject {
 	GameFont		font;
 
 	AdvanceSprite	roachSprite, enemySprite;
-	BufferedImage	key, exitDoor, scroll, block, arrowKey;
+	BufferedImage	burger, burgers, fullPlate, block, arrowKey;
 
 	int				page = 1;
 
@@ -40,10 +40,10 @@ public class Instructions extends GameObject {
 
 	public void initResources() {
 		titleImage = getImage("images/title.png");
-		key = getImages("images/uppertileset.png", 11, 1)[1];
-		exitDoor = getImages("images/uppertileset.png", 11, 1)[2];
-		scroll = getImages("images/uppertileset.png", 11, 1)[10];
-		block = getImages("images/lowertileset.png", 10, 5)[33];
+		burger = getImages("images/uppertileset.png", 5, 1)[1];
+		burger = getImages("images/uppertileset.png", 5, 1)[2];
+		fullPlate = getImages("images/uppertileset.png", 5, 1)[3];
+		block = getImages("images/lowertileset.png", 15, 5)[33];
 		arrowKey = getImage("images/arrow.jpg");
 
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
@@ -88,20 +88,20 @@ public class Instructions extends GameObject {
  /****************************************************************************/
 
 	public void render(Graphics2D g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.drawImage(titleImage, 10, 10, null);
 
 		switch (page) {
 	   		case 1:
-	            font.drawString(g, "This is you    :", 110, 150);
+	            font.drawString(g, "This is you    :", 110, 160);
 	            roachSprite.render(g, 500, 150);
 
 	            font.drawString(g, "Avoid these    :", 110, 200);
 	            enemySprite.render(g, 500, 200);
 
 	            font.drawString(g, "Collect these  :", 110, 250);
-	            g.drawImage(key, 500, 250, null);
+	            g.drawImage(burger, 500, 250, null);
 
 	            /*
 	            font.drawString(g, "To get to this :", 110, 300);
@@ -118,7 +118,7 @@ public class Instructions extends GameObject {
 
 			case 2:
 	            font.drawString(g, "Collect these  :", 110, 150);
-	            g.drawImage(scroll, 500, 150, null);
+	            g.drawImage(burgers, 500, 150, null);
 
 	            font.drawString(g, "And press <SPACE>", 110, 200);
 
