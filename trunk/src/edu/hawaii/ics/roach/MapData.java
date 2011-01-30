@@ -6,6 +6,9 @@ import java.io.*;
 
 public class MapData {
 
+	public static final int NUM_COL_TILES = 26;
+	public static final int NUM_ROW_TILES = 20;
+
 	String 		title;
 	int 		time;
 	int[][]		lowerTiles;
@@ -14,8 +17,8 @@ public class MapData {
 
 
 	public MapData() {
-		lowerTiles = new int[20][15];
-		upperTiles = new int[20][15];
+		lowerTiles = new int[NUM_COL_TILES][NUM_ROW_TILES];
+		upperTiles = new int[NUM_COL_TILES][NUM_ROW_TILES];
 	}
 
 	public MapData(String title, int time,
@@ -37,8 +40,8 @@ public class MapData {
         dout.writeInt(time);
 
 		// saving tiles
-		for (int j=0;j < 15;j++)
-		for (int i=0;i < 20;i++) {
+		for (int j=0;j < NUM_ROW_TILES;j++)
+		for (int i=0;i < NUM_COL_TILES;i++) {
             dout.writeShort(lowerTiles[i][j]);
             dout.writeShort(upperTiles[i][j]);
         }
@@ -65,8 +68,8 @@ public class MapData {
 		time = din.readInt();
 
 		// reading tiles
-		for (int j=0;j < 15;j++)
-		for (int i=0;i < 20;i++) {
+		for (int j=0;j < NUM_ROW_TILES;j++)
+		for (int i=0;i < NUM_COL_TILES;i++) {
             lowerTiles[i][j] = din.readShort();
             upperTiles[i][j] = din.readShort();
         }

@@ -152,12 +152,12 @@ public class Roach extends GameObject implements Comparator {
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
 
 		// create background
-		int w = 480, h = 360;
+		int w = 640, h = 480;
 		Background backgr = new Background(w, h);
 
 		// the background is drawn from 75, 67
-		int offsetX = 75, offsetY = 67;
-		backgr.setClip(offsetX, offsetY, w, h);
+//		int offsetX = 75, offsetY = 67;
+//		backgr.setClip(offsetX, offsetY, w, h);
 
 		playfield = new PlayField(backgr);
 		playfield.setComparator(this);
@@ -221,8 +221,8 @@ public class Roach extends GameObject implements Comparator {
 		// construct lower and upper tiles
         int[][] lowerTiles = data.lowerTiles;
         int[][] upperTiles = data.upperTiles;
-		for (int j=0;j < 15;j++)
-		for (int i=0;i < 20;i++) {
+		for (int j=0;j < MapBuilder.NUM_ROW_TILES;j++)
+		for (int i=0;i < MapBuilder.NUM_COL_TILES;i++) {
         	int lower = data.lowerTiles[i][j];
         	int upper = data.upperTiles[i][j];
 
@@ -596,6 +596,8 @@ public class Roach extends GameObject implements Comparator {
 
 		switch (gameState) {
 		case PLAYING:
+			g.setColor(Color.BLACK);
+			g.fillRect(getWidth()-20, 0, 20, getHeight());
 			playfield.render(g);
 			// draw title
 			font.drawString(g, title, GameFont.CENTER, 0, 15, getWidth());

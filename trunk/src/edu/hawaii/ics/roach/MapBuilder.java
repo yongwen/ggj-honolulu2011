@@ -18,13 +18,15 @@ import com.golden.gamedev.util.*;
 
 public class MapBuilder extends Game implements ListSelectionListener {
 
+	public static final int NUM_COL_TILES = 26;
+	public static final int NUM_ROW_TILES = 20;
 
 	public static final int LOWER_TILE_EDITING = 0,
 							UPPER_TILE_EDITING = 1,
 							ENEMY_EDITING = 2;
 
-	int[][]				lowerTiles = new int[20][15];
-	int[][]				upperTiles = new int[20][15];
+	int[][]				lowerTiles = new int[NUM_COL_TILES][NUM_ROW_TILES];
+	int[][]				upperTiles = new int[NUM_COL_TILES][NUM_ROW_TILES];
 	DefaultListModel	enemyListData = new DefaultListModel();
 
 	BufferedImage[]		lowerImages;
@@ -111,8 +113,8 @@ public class MapBuilder extends Game implements ListSelectionListener {
 			return;
 		}
 
-		for (int j=0;j < 15;j++)
-		for (int i=0;i < 20;i++) {
+		for (int j=0;j < NUM_ROW_TILES;j++)
+		for (int i=0;i < NUM_COL_TILES;i++) {
 			lowerTiles[i][j] = 0;
 			upperTiles[i][j] = 0;
 		}
@@ -215,8 +217,8 @@ public class MapBuilder extends Game implements ListSelectionListener {
 		// check for start and end point
 		boolean startPoint = true;
 		boolean exitPoint = true;
-		for (int j=0;j < 15;j++)
-		for (int i=0;i < 20;i++) {
+		for (int j=0;j < NUM_ROW_TILES;j++)
+		for (int i=0;i < NUM_COL_TILES;i++) {
 			if (upperTiles[i][j] == 2) {
 				exitPoint = true;
 			} else if (upperTiles[i][j] == 7) {
@@ -273,8 +275,8 @@ public class MapBuilder extends Game implements ListSelectionListener {
 	try {
 		int tileX = (int) (getMouseX() / 24);
 		int tileY = (int) (getMouseY() / 24);
-		if (tileX > 19) tileX = 19;
-		if (tileY > 14) tileY = 14;
+		if (tileX >= NUM_COL_TILES) tileX = NUM_COL_TILES-1;
+		if (tileY >= NUM_ROW_TILES) tileY = NUM_ROW_TILES-1;
 
 
 		// placing a tile
@@ -286,24 +288,6 @@ public class MapBuilder extends Game implements ListSelectionListener {
 				break;
 
 				case UPPER_TILE_EDITING:
-					// there only can be one start position and exit door!
-					if (num == 2) { // exit door
-						for (int j=0;j < 15;j++)
-						for (int i=0;i < 20;i++) {
-							if (upperTiles[i][j] == 2) {
-								upperTiles[i][j] = 0;
-							}
-						}
-					}
-					if (num == 7) { // start position
-						for (int j=0;j < 15;j++)
-						for (int i=0;i < 20;i++) {
-							if (upperTiles[i][j] == 7) {
-								upperTiles[i][j] = 0;
-							}
-						}
-					}
-
 					upperTiles[tileX][tileY] = num;
 					editMap();
 				break;
@@ -370,8 +354,8 @@ public class MapBuilder extends Game implements ListSelectionListener {
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		// draw tiles
-		for (int j=0;j < 15;j++)
-		for (int i=0;i < 20;i++) {
+		for (int j=0;j < NUM_ROW_TILES;j++)
+		for (int i=0;i < NUM_COL_TILES;i++) {
 			int tile = lowerTiles[i][j];
 			g.drawImage(lowerImages[tile], i*24, j*24, null);
 
@@ -413,7 +397,7 @@ public class MapBuilder extends Game implements ListSelectionListener {
 
 	public static void main(String[] args) {
 		GameLoader game = new GameLoader();
-		game.setup(new MapBuilder(), new Dimension(480,368), false);
+		game.setup(new MapBuilder(), new Dimension(640,480), false);
 		((WindowedMode) game.getGame().bsGraphics).getFrame().removeWindowListener(game);
 		game.start();
 	}
