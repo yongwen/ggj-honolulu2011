@@ -18,11 +18,14 @@ public class EnemyItemCollision extends BasicCollisionGroup {
 
 	// item constants
 	// see 'images/uppertileset.png'
-	public static final int KEY 			= 1;
-	public static final int EXIT_POINT 		= 2;
-	public static final int RED_GEM 		= 3;
-	public static final int GREEN_GEM 		= 4;
-	public static final int BLUE_GEM 		= 5;
+	public static final int KEY 			= 11;
+	public static final int EXIT_POINT 		= 12;
+	
+	public static final int FOOD_1 		= 1;
+	public static final int FOOD_2 		= 2;
+	public static final int FOOD_3 		= 3;
+	public static final int FOOD_4 		= 4;
+	
 	public static final int EXTRA_LIFE 		= 6;
 	public static final int START_POINT 	= 7;
 	public static final int BOOTS 			= 8;
@@ -55,13 +58,13 @@ public class EnemyItemCollision extends BasicCollisionGroup {
 
 	public void collided(Sprite s1, Sprite s2) {
 
-		if (s2.getID() == RED_GEM ||
-			s2.getID() == GREEN_GEM ||
-			s2.getID() == BLUE_GEM)		
-		{
-			// collided GEM item is taken by roach (disappeared)
-			game.RoachAteFood(s2);
-			
+		switch (s2.getID()) {
+			case FOOD_1:
+			case FOOD_2:
+			case FOOD_3:
+			case FOOD_4:
+				// collided FOOD item is taken by roach
+				game.RoachAteFood(s2);		
 		}
 
 		/*

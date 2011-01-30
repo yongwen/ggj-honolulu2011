@@ -54,13 +54,13 @@ public class PlayerItemCollision extends BasicCollisionGroup {
     }
 
 	public void collided(Sprite s1, Sprite s2) {
+		/*
 		if (s2.getID() != EXIT_POINT) {
 			// collided item is taken by roach (disappeared)
 			// except for exit door
 			s2.setActive(false);
 		}
 
-		/*
 		switch (s2.getID()) {
 			case KEY: 			game.pickKey(); break;
 			case EXIT_POINT: 	game.nextLevel(); break;
