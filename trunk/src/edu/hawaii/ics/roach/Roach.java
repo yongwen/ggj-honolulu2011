@@ -235,12 +235,13 @@ public class Roach extends GameObject implements Comparator {
 	        int[] prop = (int[]) data.enemyListData[i];
 			int charType = prop[0];
 			int logicType = prop[1];
-			/*
+			
 			double posx = prop[2] * 24;
 			double posy = prop[3] * 24;
-			*/
+			/*
 			double posx = 17*24;
 			double posy = 10*24;
+			*/
 			BufferedImage[] image = getImages("images/roach.png", 12, 1, charType*12, (charType*12)+11);
 
 			double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
@@ -271,22 +272,21 @@ public class Roach extends GameObject implements Comparator {
 			try {
 				Enemy enemy = null;
 				switch (logicType) {
-				// stand still
-				case 0: enemy = new Enemy(this, image, posx, posy, speed, animationDelay); break;
-				// left-right patrol
-				case 1: enemy = new LeftRightPatrol(this, image, posx, posy, speed, animationDelay); break;
-				// up-down patrol
-				case 2: enemy = new UpDownPatrol(this, image, posx, posy, speed, animationDelay); break;
-				// turn left always
-				case 3: enemy = new TurnLeftAlways(this, image, posx, posy, speed, animationDelay); break;
-				// turn right always
-				case 4: enemy = new TurnRightAlways(this, image, posx, posy, speed, animationDelay); break;
-				// turner
-				case 5: enemy = new Turner(this, image, posx, posy, speed, animationDelay); break;
-				// zombie
-				case 6: enemy = new Zombie(this, image, posx, posy, speed, animationDelay, player); break;
-			}
-
+					// stand still
+					case 0: enemy = new Enemy(this, image, posx, posy, speed, animationDelay); break;
+					// left-right patrol
+					case 1: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
+					// up-down patrol
+					case 2: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
+					// turn left always
+					case 3: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
+					// turn right always
+					case 4: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
+					// turner
+					case 5: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
+					// zombie
+					case 6: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
+				}
 				if (enemy != null) {
 					ENEMY_GROUP.add(enemy);
 					roachCount++;
