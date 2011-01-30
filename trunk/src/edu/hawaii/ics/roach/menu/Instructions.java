@@ -95,28 +95,25 @@ public class Instructions extends GameObject {
 		switch (page) {
 	   		case 1:
 	            font.drawString(g, "This is you    :", 110, 170);
-	            roachSprite.render(g, 500, 150);
+	            roachSprite.render(g, 500, 170);
 
-	            font.drawString(g, "Avoid these    :", 110, 200);
-	            enemySprite.render(g, 500, 200);
+	            font.drawString(g, "<SPACE> to Kill:", 110, 220);
+	            enemySprite.render(g, 500, 220);
 
-	            font.drawString(g, "Collect these  :", 110, 250);
-	            g.drawImage(burger, 500, 250, null);
+	            font.drawString(g, "<A> to pick up:", 110, 270);
+	            g.drawImage(burger, 500, 270, null);
 
-	            /*
-	            font.drawString(g, "To get to this :", 110, 300);
-	            g.drawImage(exitDoor, 500, 300, null);
-				*/
-	            
-	            font.drawString(g, "Move key       :", 110, 300);
-	            g.drawImage(arrowKey, 470, 300, null);
+	            font.drawString(g, "<D> to drop:", 110, 320);
+	            g.drawImage(burger, 500, 320, null);
+			            
+	            font.drawString(g, "<Arrow> to move:", 110, 370);
+	            g.drawImage(arrowKey, 500, 370, null);
 
-	            font.drawString(g, "press <SPACE> to kill:", 110, 350);
-
-				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 430, getWidth());
+				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 440, getWidth());
 			break;
 
 			case 2:
+				
 	            font.drawString(g, "Collect these  :", 110, 150);
 	            g.drawImage(burgers, 500, 150, null);
 
