@@ -67,6 +67,7 @@ public class Roach extends GameObject implements Comparator {
 	private int			score;
 	private int			scroll;
 	private int 		roachCount;
+	private int			foodLeft;
 	
 	/******************************** PLAY FIELD ********************************/
 
@@ -193,6 +194,8 @@ public class Roach extends GameObject implements Comparator {
 		title = data.title;
         time = data.time;
 
+        foodLeft = 0;
+        
 		// construct lower and upper tiles
         int[][] lowerTiles = data.lowerTiles;
         int[][] upperTiles = data.upperTiles;
@@ -228,10 +231,14 @@ public class Roach extends GameObject implements Comparator {
 				Sprite item = new Sprite(upperImages[upper],i*24,j*24);
 				item.setID(upper);
 				UPPER_GROUP.add(item);
+				
+				if (upper <= 3)
+					foodLeft++;
 			}
         }
 
         // construct enemies
+		roachCount = 0;
 		int count = data.enemyListData.length;
         for (int i=0;i < count;i++) {
 	        int[] prop = (int[]) data.enemyListData[i];
@@ -553,13 +560,17 @@ public class Roach extends GameObject implements Comparator {
 			playfield.render(g);
 			// draw title
 			font.drawString(g, title, GameFont.CENTER, 0, 15, getWidth());
-			// draw time
-			font.drawString(g, "Time:" + time, 455, 440);
+			// draw # of enemies left
+			font.drawString(g, "Roach: " + String.valueOf(roachCount), 250, 440);
+			// don't draw time, roaches will likely eat all food before time expires
+			// font.drawString(g, "Time:" + time, 455, 440);
+			// instead, display # of food left
+			font.drawString(g, "Food:" + foodLeft, 455, 440);
+			
+			
 			// draw score
 			font.drawString(g, "Score:" + String.valueOf(score), 10, 440);
 			
-			// draw # of enemies left
-			font.drawString(g, "Left: " + String.valueOf(roachCount), 250, 440);
 			
 			if (scroll > 0) {
 				// draw scroll
@@ -872,14 +883,16 @@ public class Roach extends GameObject implements Comparator {
 	public void RoachAteFood(Sprite s2) {
 		s2.setActive(false);
 		
+		foodLeft = 0;
+		
 		int size = UPPER_GROUP.getSize();
 		Sprite[] s = UPPER_GROUP.getSprites();
 		int i=0;
 		for (;i < size;i++) {
 			if (s[i].isActive())
-				break;
+				foodLeft++;
 		}
-		if (i == size)
+		if (foodLeft <= 0)
 			getCaught();		
 	}
 
