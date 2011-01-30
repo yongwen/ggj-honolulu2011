@@ -103,6 +103,7 @@ public class Roach extends GameObject implements Comparator {
 
 
 	private RoachGame	game;
+	private Sprite food = null;
 
 
  /****************************************************************************/
@@ -465,7 +466,10 @@ public class Roach extends GameObject implements Comparator {
 				player.moveY(playerSpeed * elapsedTime);
 				player.setAnimate(true);
 				player.setDirection(player.DOWN);
+			} else if (keyDown(KeyEvent.VK_D)) {
+				dropFood(player.getX(), player.getY());
 			}
+			
 		break;
 
 
@@ -523,7 +527,10 @@ public class Roach extends GameObject implements Comparator {
 	}
 
 
- /****************************************************************************/
+ 
+
+
+/****************************************************************************/
  /****************************** RENDER GAME *********************************/
  /****************************************************************************/
 
@@ -874,4 +881,21 @@ public class Roach extends GameObject implements Comparator {
 			getCaught();		
 	}
 
+
+	public void pickupFood(Sprite s2) {
+		if (food == null)
+		{
+	      s2.setActive(false);
+		  food = s2;
+		}
+	}
+
+	public void dropFood(double x, double y) {
+		if (food != null)
+		{
+		   food.setLocation(x,y);
+		   food.setActive(true);
+		   food = null;
+		}
+	}
 }

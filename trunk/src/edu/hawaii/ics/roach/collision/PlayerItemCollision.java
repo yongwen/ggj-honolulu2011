@@ -1,6 +1,7 @@
 package edu.hawaii.ics.roach.collision;
 
 // JFC
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 
 // GTGE
@@ -54,6 +55,11 @@ public class PlayerItemCollision extends BasicCollisionGroup {
     }
 
 	public void collided(Sprite s1, Sprite s2) {
+		if (game.keyPressed(KeyEvent.VK_A))
+		{
+			game.pickupFood(s2);
+		}
+		
 		/*
 		if (s2.getID() != EXIT_POINT) {
 			// collided item is taken by roach (disappeared)
