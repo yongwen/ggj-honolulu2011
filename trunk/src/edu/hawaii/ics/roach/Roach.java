@@ -59,8 +59,8 @@ public class Roach extends GameObject implements Comparator {
 	public static final int FLOOR_ID = 2;
 	public static final int BLOCK_ID = 33;
 	
-    private static final int MAX_TRAP_COUNT = 3;
-	private static final int MAX_TRAPPED_ROACH_COUNT = 1;
+    private static final int MAX_TRAP_COUNT = 2;
+	private static final int MAX_TRAPPED_ROACH_COUNT = 3;
 	
 	private int 	    nextLevelScore = LEVEL_SCORE_INCREMENT;
 

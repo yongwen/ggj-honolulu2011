@@ -1,14 +1,29 @@
 package edu.hawaii.ics.roach;
 
 // JFC
+import java.applet.Applet;
+import java.awt.AlphaComposite;
+import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
+import java.net.URL;
+
 import javax.swing.JPanel;
 
 // GTGE
+import com.golden.gamedev.Game;
 import com.golden.gamedev.GameEngine;
 import com.golden.gamedev.GameObject;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.funbox.GameSettings;
+import com.golden.gamedev.util.ImageUtil;
 
 import com.golden.gamedev.engine.BaseGraphics;
 import com.golden.gamedev.engine.graphics.AppletMode;
@@ -66,6 +81,111 @@ public class RoachGame extends GameEngine {
 		return null;
 	}
 
+  protected void notifyExit() {
+	if ((this.bsGraphics instanceof Applet) == false) {
+		// non-applet game should call System.exit(0);
+		try {
+			System.exit(0);
+		}
+		catch (Exception e) {
+		}
+		
+	}
+	else {
+		// applet game should display to the user
+		// that the game has been ended
+		final Applet applet = (Applet) this.bsGraphics;
+		BufferedImage src = ImageUtil.createImage(this.getWidth(), this
+		        .getHeight());
+		Graphics2D g = src.createGraphics();
+		
+		try {
+			// fill background
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			
+			// play with transparency a bit
+			g.setComposite(AlphaComposite.getInstance(
+			        AlphaComposite.SRC_OVER, 0.8f));
+			
+			// draw in a circle only
+			Shape shape = new java.awt.geom.Ellipse2D.Float(
+			        this.getWidth() / 10, this.getHeight() / 10, this
+			                .getWidth()
+			                - (this.getWidth() / 10 * 2), this.getHeight()
+			                - (this.getHeight() / 10 * 2));
+			g.setClip(shape);
+			
+			// draw the game unto this image
+			if (this instanceof GameEngine) {
+				((GameEngine) this).getCurrentGame().render(g);
+			}
+			this.render(g);
+			
+			g.dispose();
+		}
+		catch (Exception e) {
+			g.setColor(Color.BLACK);
+			g.fillRect(0, 0, this.getWidth(), this.getHeight());
+			g.dispose();
+		}
+		
+		// make it as gray
+		BufferedImage converted = null;
+		try {
+			// technique #1
+			// ColorSpace gray = ColorSpace.getInstance(ColorSpace.CS_GRAY);
+			// converted = new ColorConvertOp(gray, null).filter(src, null);
+			
+			// technique #2
+			BufferedImage image = new BufferedImage(src.getWidth(), src
+			        .getHeight(), BufferedImage.TYPE_BYTE_GRAY);
+			Graphics gfx = image.getGraphics();
+			gfx.drawImage(src, 0, 0, null);
+			gfx.dispose();
+			converted = image;
+			
+			// technique #3
+			// ImageFilter filter = new GrayFilter(true, 75);
+			// ImageProducer producer = new
+			// FilteredImageSource(colorImage.getSource(), filter);
+			// Image mage = this.createImage(producer);
+			
+		}
+		catch (Throwable e) {
+		}
+		final BufferedImage image = (converted != null) ? converted : src;
+		
+		applet.removeAll();
+		applet.setIgnoreRepaint(false);
+		
+		Canvas canvas = new Canvas() {
+			
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 8493852179266447783L;
+			
+			public void paint(Graphics g1) {
+				Graphics2D g = (Graphics2D) g1;
+				
+				// draw game image
+				g.drawImage(image, 0, 0, null);
+				
+				// draw text
+				g.setColor(Color.YELLOW);
+				g.setFont(new Font("Verdana", Font.BOLD, 12));
+				g.drawString("Game has been ended", 10, 25);
+				g.drawString("Thank you for playing!", 10, 45);
+			}
+		};
+		canvas.setSize(applet.getSize());
+		
+		applet.add(canvas);
+		applet.repaint();
+		canvas.repaint();
+	}
+}
 
  /****************************************************************************/
  /****************************** MAIN-CLASS **********************************/
