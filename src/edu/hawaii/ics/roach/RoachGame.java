@@ -10,6 +10,11 @@ import com.golden.gamedev.GameObject;
 import com.golden.gamedev.GameLoader;
 import com.golden.gamedev.funbox.GameSettings;
 
+import com.golden.gamedev.engine.BaseGraphics;
+import com.golden.gamedev.engine.graphics.AppletMode;
+import com.golden.gamedev.engine.graphics.FullScreenMode;
+import com.golden.gamedev.engine.graphics.WindowedMode;
+
 // ROACH GAME
 import edu.hawaii.ics.roach.menu.*;
 
@@ -67,21 +72,16 @@ public class RoachGame extends GameEngine {
  /****************************************************************************/
 
 	public static void main(String[] args) {
-		GameSettings settings = new GameSettings(RoachGame.class.getResource("images/title.png")) {
-			public void start() {
-				GameLoader game = new GameLoader();
-				game.setup(new RoachGame(), new Dimension(640,480),
-						   fullscreen.isSelected(), bufferstrategy.isSelected());
-				game.start();
-			}
-
-			protected JPanel initSettings() {
-				JPanel pane = super.initSettings();
-				pane.remove(sound);
-
-				return pane;
-			}
-		};
+		GameLoader game = new GameLoader();
+        game.setup(new RoachGame(), new Dimension(640,480), false);
+        
+        BaseGraphics gfx = game.getGame().bsGraphics;
+   	    if (gfx instanceof WindowedMode) {
+   	       // remove this listener
+   	       ((WindowedMode) gfx).getFrame().setTitle("Roach Survival");
+   	    }
+        
+        game.start();
 	}
 
 	//{ distribute = true; }
