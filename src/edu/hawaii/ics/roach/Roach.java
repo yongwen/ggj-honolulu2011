@@ -600,7 +600,7 @@ public class Roach extends GameObject implements Comparator {
 			g.fillRect(getWidth()-20, 0, 20, getHeight());
 			playfield.render(g);
 			// draw title
-			font.drawString(g, title, GameFont.CENTER, 0, 15, getWidth());
+			font.drawString(g, title, GameFont.CENTER, 0, 30, getWidth());
 			// draw # of enemies left
 			font.drawString(g, "Roach: " + String.valueOf(roachCount), 250, 440);
 			// don't draw time, roaches will likely eat all food before time expires
@@ -619,8 +619,9 @@ public class Roach extends GameObject implements Comparator {
 				font.drawString(g, String.valueOf(scroll), 10, 333);
 			}
 			// draw life
-			g.drawImage(roachImage[0], 13, 365, null);
-			font.drawString(g, String.valueOf(life), 10, 398);
+			// don't draw life anymore
+//			g.drawImage(roachImage[0], 13, 365, null);
+	//		font.drawString(g, String.valueOf(life), 10, 398);
 		break;
 
 
