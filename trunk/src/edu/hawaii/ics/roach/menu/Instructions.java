@@ -94,7 +94,7 @@ public class Instructions extends GameObject {
 
 		switch (page) {
 	   		case 1:
-	            font.drawString(g, "This is you    :", 110, 160);
+	            font.drawString(g, "This is you    :", 110, 170);
 	            roachSprite.render(g, 500, 150);
 
 	            font.drawString(g, "Avoid these    :", 110, 200);

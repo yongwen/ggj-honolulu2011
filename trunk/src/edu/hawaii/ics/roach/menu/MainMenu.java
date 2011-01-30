@@ -17,7 +17,10 @@ import edu.hawaii.ics.roach.RoachGame;
 
 public class MainMenu extends GameObject {
 
+	public static final int 	MENU_Y_SPACING 		= 40;
+	public static final int		MENU_Y_START		= 190;
 
+	
 	BufferedImage 	titleImage;
 	GameFont		font;
 
@@ -40,14 +43,14 @@ public class MainMenu extends GameObject {
 
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
 
-		leftOptionSprite = new AdvanceSprite(getImages("images/charset.png",12,7));
-		leftOptionSprite.setAnimationFrame(new int[] { 15, 16, 17, 16 });
+		leftOptionSprite = new AdvanceSprite(getImages("images/roach.png",12,1));
+		leftOptionSprite.setAnimationFrame(new int[] { 3,4,5 });
 		leftOptionSprite.setAnimate(true);
 		leftOptionSprite.setLoopAnim(true);
 		leftOptionSprite.getAnimationTimer().setDelay(160);
 
-		rightOptionSprite = new AdvanceSprite(getImages("images/charset.png",12,7));
-		rightOptionSprite.setAnimationFrame(new int[] { 21, 22, 23, 22 });
+		rightOptionSprite = new AdvanceSprite(getImages("images/roach.png",12,7));
+		rightOptionSprite.setAnimationFrame(new int[] { 9,10,11 });
 		rightOptionSprite.setAnimate(true);
 		rightOptionSprite.setLoopAnim(true);
 		rightOptionSprite.getAnimationTimer().setDelay(160);
@@ -132,15 +135,15 @@ public class MainMenu extends GameObject {
 
 		String sound = (bsSound.isActive()) ? "ON" : "OFF";
 		String lvl = game.levelDesc[game.level];
-		font.drawString(g, "Start Game", 	GameFont.CENTER, 0, 150, getWidth());
-		font.drawString(g, "Instructions", 	GameFont.CENTER, 0, 190, getWidth());
-		font.drawString(g, "Hi-Scores", 	GameFont.CENTER, 0, 230, getWidth());
-		font.drawString(g, "Sound: "+sound,	GameFont.CENTER, 0, 270, getWidth());
-		font.drawString(g, "Level: "+lvl,	GameFont.CENTER, 0, 310, getWidth());
-		font.drawString(g, "Credits", 		GameFont.CENTER, 0, 350, getWidth());
-		font.drawString(g, "Quit Game", 	GameFont.CENTER, 0, 410, getWidth());
+		font.drawString(g, "Start Game", 	GameFont.CENTER, 0, MENU_Y_START+0*MENU_Y_SPACING, getWidth());
+		font.drawString(g, "Instructions", 	GameFont.CENTER, 0, MENU_Y_START+1*MENU_Y_SPACING, getWidth());
+		font.drawString(g, "Hi-Scores", 	GameFont.CENTER, 0, MENU_Y_START+2*MENU_Y_SPACING, getWidth());
+		font.drawString(g, "Sound: "+sound,	GameFont.CENTER, 0, MENU_Y_START+3*MENU_Y_SPACING, getWidth());
+		font.drawString(g, "Level: "+lvl,	GameFont.CENTER, 0, MENU_Y_START+4*MENU_Y_SPACING, getWidth());
+		font.drawString(g, "Credits", 		GameFont.CENTER, 0, MENU_Y_START+5*MENU_Y_SPACING, getWidth());
+		font.drawString(g, "Quit Game", 	GameFont.CENTER, 0, MENU_Y_START+6*MENU_Y_SPACING, getWidth());
 
-		int y = (option == 6) ? 410 : 150+(option*40);
+		int y = MENU_Y_START+(option*MENU_Y_SPACING);
 		leftOptionSprite.render(g, 145, y);
 		rightOptionSprite.render(g, 475, y);
 	}
