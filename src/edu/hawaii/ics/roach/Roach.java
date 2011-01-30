@@ -118,7 +118,7 @@ public class Roach extends GameObject implements Comparator {
 		lowerImages = getImages("images/lowertileset.png", 10, 5);
 		upperImages = getImages("images/uppertileset.png", 11, 1);
 		coins = getImages("images/coins.png", 3, 1);
-		roachImage = getImages("images/roach.png", 12, 1);
+		roachImage = getImages("images/player.png", 12, 1);
 
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
 
