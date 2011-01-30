@@ -16,12 +16,11 @@ import edu.hawaii.ics.roach.enemylogic.*;
 public class RoachSpawn extends Sprite {
 	
 	// number of milliseconds before roaches start to spawn
-	private static final int ROACH_FREE_START_TIME = 5000;
+	private static final int ROACH_FREE_START_TIME = 10000;
 	// time between roach spawns waves
 	private static final int ROACH_WAVE_TIME = 1000;
 	// maximum number of roaches spawned at level 1,
-	// increase by this number for each subsequent level
-	private static final int ROACHES_PER_LEVEL = 8;
+
 	
 	private Roach game;
 	private int roachesSpawned = 0;
@@ -34,6 +33,7 @@ public class RoachSpawn extends Sprite {
 		super(image,x,y);
 		this.game = game;
 		roachImage = game.getImages("images/roach.png", 12, 1, 0, 11);
+		spawnSomeRoaches();
 		}
 
     public void update(long elapsedTime) {
@@ -48,7 +48,7 @@ public class RoachSpawn extends Sprite {
 		double posy = this.getY();
 		int level = game.currentLevel();
 
-    	if (roachesSpawned >= ROACHES_PER_LEVEL*game.currentLevel()) {
+    	if (roachesSpawned >= game.ROACHES_PER_LEVEL*game.currentLevel()) {
     		timer.setDelay(10000000);
     	} else {
 			double ENEMY_SPEED = game.ENEMY_SPEED_NORMAL;

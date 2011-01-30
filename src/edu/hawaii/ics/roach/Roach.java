@@ -83,6 +83,8 @@ public class Roach extends GameObject implements Comparator {
 	private int			score;
 	private int			scroll;
 	private int 		roachCount;
+	// increase by this number for each subsequent level
+	public static final int ROACHES_PER_LEVEL = 8;
 	private int			foodLeft;
 	
 	/******************************** PLAY FIELD ********************************/
@@ -250,7 +252,7 @@ public class Roach extends GameObject implements Comparator {
 				foodLeft++;
 			}
         }
-		roachCount = 0;
+		roachCount = ROACHES_PER_LEVEL * level;
 	}
 
 	private MapData loadMap(int index) {
@@ -808,11 +810,7 @@ public class Roach extends GameObject implements Comparator {
 		
 		int size = ENEMY_GROUP.getSize();
 		Sprite[] s = ENEMY_GROUP.getSprites();
-		roachCount = 0;
-		for (int i=0;i < size;i++) {
-			if (s[i].isActive())
-				roachCount++;
-		}
+		roachCount--;
 		if (roachCount == 0)
 			nextLevel();
 	}
@@ -930,7 +928,6 @@ public class Roach extends GameObject implements Comparator {
 
 	public void addRoach(Enemy enemy) {
             ENEMY_GROUP.add(enemy);
-            roachCount++;
     }
 
     public int numRoaches() {
