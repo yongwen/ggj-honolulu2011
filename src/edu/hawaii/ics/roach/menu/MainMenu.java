@@ -30,6 +30,8 @@ public class MainMenu extends GameObject {
 					rightOptionSprite;
 
 	RoachGame		game;
+	
+	private boolean	isPlaying;
 
 
 	public MainMenu(RoachGame parent) {
@@ -54,8 +56,9 @@ public class MainMenu extends GameObject {
 		rightOptionSprite.setAnimate(true);
 		rightOptionSprite.setLoopAnim(true);
 		rightOptionSprite.getAnimationTimer().setDelay(160);
+		
+		isPlaying = false;
 
-		playMusic("music/mainmenu.mid");
 	}
 
 	public void update(long elapsedTime) {
@@ -146,6 +149,12 @@ public class MainMenu extends GameObject {
 		int y = MENU_Y_START+(option*MENU_Y_SPACING);
 		leftOptionSprite.render(g, 145, y);
 		rightOptionSprite.render(g, 475, y);
+		
+		if( !isPlaying )
+		{
+			isPlaying = true;
+			playMusic("music/Intro-Amazing Plan.mp3");
+		}
 	}
 
 }
