@@ -16,25 +16,7 @@ import edu.hawaii.ics.roach.Text;
 
 public class EnemyItemCollision extends BasicCollisionGroup {
 
-	// item constants
-	// see 'images/uppertileset.png'
-	public static final int KEY 			= 11;
-	public static final int EXIT_POINT 		= 12;
-	
-	public static final int FOOD_1 		= 1;
-	public static final int FOOD_2 		= 2;
-	public static final int FOOD_3 		= 3;
-	public static final int FOOD_4 		= 4;
-	
-	public static final int EXTRA_LIFE 		= 6;
-	public static final int START_POINT 	= 7;
-	public static final int BOOTS 			= 8;
-	public static final int FREEZE 			= 9;
-	public static final int BLOCK_SCROLL 	= 10;
-
-
 	Roach		game;
-
 
 	public EnemyItemCollision(Roach game) {
 		this.game = game;
@@ -59,14 +41,19 @@ public class EnemyItemCollision extends BasicCollisionGroup {
 	public void collided(Sprite s1, Sprite s2) {
 
 		switch (s2.getID()) {
-			case FOOD_1:
-			case FOOD_2:
-			case FOOD_3:
-			case FOOD_4:
+			case Roach.FOOD_1:
+			case Roach.FOOD_2:
+			case Roach.FOOD_3:
+			case Roach.FOOD_4:
 				// collided FOOD item is taken by roach
-				game.RoachAteFood(s2);		
+				game.roachAteFood(s2);		
+				break;
+			case Roach.TRAP_ID: 
+				game.roachTrap(s1, s2);
+				break;
 		}
 
+		
 		/*
 		switch (s2.getID()) {
 			case KEY: 			game.pickKey(); break;

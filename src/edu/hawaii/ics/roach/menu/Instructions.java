@@ -114,15 +114,12 @@ public class Instructions extends GameObject {
 
 			case 2:
 				
-	            font.drawString(g, "Collect these  :", 110, 150);
-	            g.drawImage(burgers, 500, 150, null);
+	            font.drawString(g, "<W> to lay wall:", 110, 170);
+	            g.drawImage(block, 500, 179, null);
+	            
+	            font.drawString(g, "<E> to drop trap", 110, 220);
 
-	            font.drawString(g, "And press <SPACE>", 110, 200);
-
-				font.drawString(g, "to create these:", 110, 250);
-	            g.drawImage(block, 500, 250, null);
-
-				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 430, getWidth());
+				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 440, getWidth());
 	        break;
 		}
 	}

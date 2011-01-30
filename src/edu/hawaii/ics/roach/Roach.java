@@ -24,7 +24,9 @@ import edu.hawaii.ics.roach.menu.HighScore;
 
 public class Roach extends GameObject implements Comparator {
 
-
+/**************************** Config *****************************************/
+	public static final int LEVEL_SCORE_INCREMENT = 2000;
+	
  /*************************** PLAYER CONSTANTS *******************************/
 
 	public static final double 	PLAYER_SPEED 		= 0.07;
@@ -46,6 +48,23 @@ public class Roach extends GameObject implements Comparator {
 	public static final int GOING_TO_NEXT_LEVEL = 2;
 	public static final int LOSE 				= 3;
 	public static final int WIN					= 4;
+		
+	// item constants
+	// see 'images/uppertileset.png'	
+	public static final int FOOD_1 		= 1;
+	public static final int FOOD_2 		= 2;
+	public static final int FOOD_3 		= 3;
+	public static final int FOOD_4 		= 4;
+	
+	public static final int TRAP_ID = 6;
+
+	// tile constants, see lowertileset.png
+	public static final int BLOCK_ID = 33;
+	
+    private static final int MAX_TRAP_COUNT = 3;
+	private static final int MAX_TRAPPED_ROACH_COUNT = 5;
+	
+	private int 	    nextLevelScore = LEVEL_SCORE_INCREMENT;
 
 	private int			gameState;
 	private String		loseTitle;
@@ -105,6 +124,8 @@ public class Roach extends GameObject implements Comparator {
 
 	private RoachGame	game;
 	private Sprite food = null;
+
+	private int trapCount = 0;
 
 
  /****************************************************************************/
@@ -178,6 +199,7 @@ public class Roach extends GameObject implements Comparator {
 		}
 
 		playfield.clearPlayField();
+		trapCount = 0;
 
 		// add player
 		player = new RoachSprite(this, roachImage, 100, 100);
@@ -226,8 +248,8 @@ public class Roach extends GameObject implements Comparator {
 				}
 			}
 
-			if (upper > 0) 
-			{
+			if (upper > 0 && upper != TRAP_ID) 
+			{			
 				Sprite item = new Sprite(upperImages[upper],i*24,j*24);
 				item.setID(upper);
 				UPPER_GROUP.add(item);
@@ -240,6 +262,7 @@ public class Roach extends GameObject implements Comparator {
         // construct enemies
 		roachCount = 0;
 		int count = data.enemyListData.length;
+		for (int lv=0; lv<level; lv++)
         for (int i=0;i < count;i++) {
 	        int[] prop = (int[]) data.enemyListData[i];
 			int charType = prop[0];
@@ -247,10 +270,7 @@ public class Roach extends GameObject implements Comparator {
 			
 			double posx = prop[2] * 24;
 			double posy = prop[3] * 24;
-			/*
-			double posx = 17*24;
-			double posy = 10*24;
-			*/
+
 			BufferedImage[] image = getImages("images/roach.png", 12, 1, charType*12, (charType*12)+11);
 
 			double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
@@ -309,6 +329,8 @@ public class Roach extends GameObject implements Comparator {
 	private MapData loadMap(int index) {
 		MapData data = null;
 
+		// always load first level map, for next level, only increase the the number of enemy now
+		index = 1;
 		String filename = "levels/level" + index + ".map";
 
 		try {
@@ -415,31 +437,16 @@ public class Roach extends GameObject implements Comparator {
 
 			player.setAnimate(false);
 
-			if (keyPressed(KeyEvent.VK_SPACE) && scroll > 0) {
-				// create blocking stone
-				int destX = (int) ((player.getX()+12) / 24),
-					destY = (int) ((player.getY()+12) / 24);
-				switch (player.getDirection()) {
-					case RoachSprite.LEFT:  destX = (int) ((player.getX()+6) / 24) - 1; break;
-					case RoachSprite.RIGHT: destX = (int) ((player.getX()+18) / 24) + 1; break;
-					case RoachSprite.UP: 	  destY = (int) ((player.getY()+10) / 24) - 1; break;
-					case RoachSprite.DOWN:  destY = (int) ((player.getY()+24) / 24) + 1; break;
-				}
-
-				Sprite tile = getTileAt(destX, destY);
-				if (tile != null && isFloor(tile) &&
-					getObjectAt(destX, destY) == null) {
-					// create block
-					scroll--;
-					switchTile(tile, 33);
-
-					playSound("sounds/block.wav");
-				} else {
-					// unable create block
-					playSound("sounds/scroll2.wav");
-				}
+			// key pressed event
+			if (keyPressed(KeyEvent.VK_W)) {
+				createBlock();
+			} else if (keyPressed(KeyEvent.VK_D)) {
+				dropFood(player.getX(), player.getY());
+			} else if (keyPressed(KeyEvent.VK_E)) {
+				dropTrap(player.getX(), player.getY());
 			}
 
+			// key down event
 			if (keyDown(KeyEvent.VK_LEFT) && keyDown(KeyEvent.VK_RIGHT)) {
 				// pressing both left and right key
 				player.setFrame(0);
@@ -473,9 +480,7 @@ public class Roach extends GameObject implements Comparator {
 				player.moveY(playerSpeed * elapsedTime);
 				player.setAnimate(true);
 				player.setDirection(player.DOWN);
-			} else if (keyDown(KeyEvent.VK_D)) {
-				dropFood(player.getX(), player.getY());
-			}
+			} 
 			
 		break;
 
@@ -522,7 +527,6 @@ public class Roach extends GameObject implements Comparator {
 			}
 		break;
 
-
 		// YOU WIN!!!
 		case WIN:
 			if (timerWin.action(elapsedTime) ||
@@ -535,8 +539,43 @@ public class Roach extends GameObject implements Comparator {
 		}
 	}
 
+	private void dropTrap(double x, double y) {
+		System.err.println("droping "+trapCount);
+		if (trapCount < MAX_TRAP_COUNT) {
+		  Sprite trap = new Sprite(upperImages[TRAP_ID],x,y);
+		  trap.setID(TRAP_ID);
+		  trap.setDataID(new Integer(0));
+		  UPPER_GROUP.add(trap);	  
+		  trap.setActive(true);
+		  trapCount ++;
+		}
+	}
 
- 
+
+	private void createBlock() {
+		// create blocking stone
+		int destX = (int) ((player.getX()+12) / 24),
+		    destY = (int) ((player.getY()+12) / 24);
+		switch (player.getDirection()) {
+			case RoachSprite.LEFT:  destX = (int) ((player.getX()+6) / 24) - 1; break;
+			case RoachSprite.RIGHT: destX = (int) ((player.getX()+18) / 24) + 1; break;
+			case RoachSprite.UP: 	destY = (int) ((player.getY()+10) / 24) - 1; break;
+			case RoachSprite.DOWN:  destY = (int) ((player.getY()+24) / 24) + 1; break;
+		}
+	
+		Sprite tile = getTileAt(destX, destY);
+		if (tile != null && isFloor(tile) &&
+			getObjectAt(destX, destY) == null) {
+			// create block
+			scroll--;
+			switchTile(tile, BLOCK_ID);
+	
+			playSound("sounds/block.wav");
+		} else {
+			// unable create block
+			playSound("sounds/scroll2.wav");
+		}
+	}
 
 
 /****************************************************************************/
@@ -689,6 +728,9 @@ public class Roach extends GameObject implements Comparator {
 		}
 
 		playSound("sounds/coins.wav");
+		
+		if (this.score >= nextLevelScore)
+			nextLevel();
 	}
 
 	public void nextLevel() {
@@ -697,6 +739,8 @@ public class Roach extends GameObject implements Comparator {
 		score += time * 5;
 		score += level * 200;
 
+		nextLevelScore = score + LEVEL_SCORE_INCREMENT * level;
+		
 		if (TEST_MAP) {
 			finish();
 		}
@@ -876,11 +920,11 @@ public class Roach extends GameObject implements Comparator {
 				roachCount++;
 		}
 		if (roachCount == 0)
-			youWin();
+			nextLevel();
 	}
 
 
-	public void RoachAteFood(Sprite s2) {
+	public void roachAteFood(Sprite s2) {
 		s2.setActive(false);
 		
 		foodLeft = 0;
@@ -889,11 +933,12 @@ public class Roach extends GameObject implements Comparator {
 		Sprite[] s = UPPER_GROUP.getSprites();
 		int i=0;
 		for (;i < size;i++) {
-			if (s[i].isActive())
-				foodLeft++;
+			if (s[i].isActive() && s[i].getID() != TRAP_ID)
+				return;
 		}
-		if (foodLeft <= 0)
-			getCaught();		
+		
+		// no active food left
+		getCaught();		
 	}
 
 
@@ -912,5 +957,17 @@ public class Roach extends GameObject implements Comparator {
 		   food.setActive(true);
 		   food = null;
 		}
+	}
+
+
+	public void roachTrap(Sprite s1, Sprite s2) {
+		int count = ((Integer)s2.getDataID()).intValue();
+		if (count < MAX_TRAPPED_ROACH_COUNT)
+		{
+		  s1.setActive(false);
+		  count ++;
+		  s2.setDataID((new Integer(count)));
+		}
+		
 	}
 }
