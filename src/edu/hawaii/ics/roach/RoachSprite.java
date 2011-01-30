@@ -28,7 +28,6 @@ public class RoachSprite extends AdvanceSprite {
 
 	private Roach game;
 
-
 	public RoachSprite(Roach game,
 						 BufferedImage[] image, double x, double y) {
 		super(image,x,y);
@@ -82,5 +81,4 @@ public class RoachSprite extends AdvanceSprite {
 	public void stepOnArrow(int dir) {
 		arrow[dir] = true;
 	}
-
 }

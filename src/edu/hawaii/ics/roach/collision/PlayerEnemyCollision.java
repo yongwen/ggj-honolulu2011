@@ -1,6 +1,8 @@
 package edu.hawaii.ics.roach.collision;
 
 // GTGE
+import java.awt.event.KeyEvent;
+
 import com.golden.gamedev.object.Sprite;
 import com.golden.gamedev.object.collision.BasicCollisionGroup;
 import com.golden.gamedev.object.collision.CollisionShape;
@@ -34,7 +36,11 @@ public class PlayerEnemyCollision extends BasicCollisionGroup {
     }
 
 	public void collided(Sprite s1, Sprite s2) {
-		game.getCaught();
+		// game.getCaught();
+		if (game.keyPressed(KeyEvent.VK_SPACE))
+		{
+			game.killRoach(s2);
+			game.addCoin(200, s2.getX(), s2.getY());
+		}
 	}
-
 }

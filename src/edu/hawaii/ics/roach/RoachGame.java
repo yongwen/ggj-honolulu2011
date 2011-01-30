@@ -84,6 +84,6 @@ public class RoachGame extends GameEngine {
 		};
 	}
 
-	{ distribute = true; }
+	//{ distribute = true; }
 
 }

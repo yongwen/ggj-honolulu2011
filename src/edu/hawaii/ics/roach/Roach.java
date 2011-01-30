@@ -142,7 +142,7 @@ public class Roach extends GameObject implements Comparator {
 		playfield.addCollisionGroup(PLAYER_GROUP, UPPER_GROUP, new PlayerItemCollision(this));
 		playfield.addCollisionGroup(ENEMY_GROUP, LOWER_GROUP, new EnemyTileCollision(this));
 		playfield.addCollisionGroup(PLAYER_GROUP, ENEMY_GROUP, new PlayerEnemyCollision(this));
-
+		playfield.addCollisionGroup(ENEMY_GROUP, UPPER_GROUP, new EnemyItemCollision(this));
 
 		// init game variable
 		level = 1;
@@ -685,6 +685,14 @@ public class Roach extends GameObject implements Comparator {
 		}
 	}
 
+	public void youWin() {
+		gameState = WIN;
+
+		if (TEST_MAP) {
+			finish();
+		}
+	}
+	
 	public void timeUp() {
 		life--;
 		gameState = LOSE;
@@ -822,6 +830,37 @@ public class Roach extends GameObject implements Comparator {
 			case 36: return true; 	// floor
 			default: return false;	// wall
 		}
+	}
+
+
+	public void killRoach(Sprite s2) {
+		s2.setActive(false);
+		// decrease roach counter
+		
+		int size = ENEMY_GROUP.getSize();
+		Sprite[] s = ENEMY_GROUP.getSprites();
+		int i=0;
+		for (;i < size;i++) {
+			if (s[i].isActive())
+				break;
+		}
+		if (i == size)
+			youWin();
+	}
+
+
+	public void RoachAteFood(Sprite s2) {
+		s2.setActive(false);
+		
+		int size = UPPER_GROUP.getSize();
+		Sprite[] s = UPPER_GROUP.getSprites();
+		int i=0;
+		for (;i < size;i++) {
+			if (s[i].isActive())
+				break;
+		}
+		if (i == size)
+			getCaught();		
 	}
 
 }
