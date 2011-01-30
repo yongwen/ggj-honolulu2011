@@ -38,7 +38,7 @@ public class PlayerTileCollision extends CollisionGroup {
 
 
 	public void collided(Sprite s1, Sprite s2) {
-		if (game.isFloor(s2)) {
+		if (game.isFloor(s2) || s2.getID() == game.BLOCK_ID) {
 			// step on floor
 			((RoachSprite) s1).stepOn(s2);
 
@@ -51,6 +51,7 @@ public class PlayerTileCollision extends CollisionGroup {
 			}
 
 		} else {
+			
 			// hit wall
 			revertPosition1();
 
