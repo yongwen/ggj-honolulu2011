@@ -41,5 +41,7 @@ public class PlayerEnemyCollision extends BasicCollisionGroup {
 		{
 			game.killRoach(s2);
 		}
+		
+		game.getCaught();
 	}
 }

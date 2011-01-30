@@ -63,6 +63,7 @@ public class Roach extends GameObject implements Comparator {
 	private static final int MAX_TRAPPED_ROACH_COUNT = 3;
 	
 	private int 	    nextLevelScore = LEVEL_SCORE_INCREMENT;
+	double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
 
 	private int			gameState;
 	private String		loseTitle;
@@ -269,7 +270,7 @@ public class Roach extends GameObject implements Comparator {
 
 			BufferedImage[] image = getImages("images/roach.png", 12, 2, charType*12, (charType*12)+11);
 
-			double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
+			
 			switch (game.level) {
 				case 0: ENEMY_SPEED = ENEMY_SPEED_EASY; break; // easy
 				case 2: ENEMY_SPEED = ENEMY_SPEED_HARD; break; // hard
@@ -884,13 +885,37 @@ public class Roach extends GameObject implements Comparator {
 	}
 
 
-	public void roachAteFood(Sprite s2) {
+	public void roachAteFood(Sprite s1, Sprite s2) {
 		s2.setActive(false);
 		foodLeft --;
 		
 		if (foodLeft == 0)
-		  getCaught();		
+		{
+			getCaught();
+			return;
+		}
+		else
+		{
+			// roach become zoombie, and chase player
+			becomeZombie(s1);
+		}
+		
 	}
+
+    private void becomeZombie(Sprite s1)
+    {
+    	double speed = 0.034 * ENEMY_SPEED; 
+    	long animationDelay = 250;
+    	
+ 		int charType = 1;
+		
+    	BufferedImage[] image = getImages("images/roach.png", 12, 2, charType*12, (charType*12)+11);
+    	
+    	Enemy zombie = new Zombie(this, image, s1.getX(), s1.getY(), speed, animationDelay, player); 
+    	s1.setActive(false);
+    	zombie.setActive(true);
+    	ENEMY_GROUP.add(zombie);
+    }
 
 
 	public void pickupFood(Sprite s2) {

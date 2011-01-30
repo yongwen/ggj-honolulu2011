@@ -42,7 +42,7 @@ public class EnemyItemCollision extends BasicCollisionGroup {
 		int itemId = s2.getID();
 		if  (itemId <= Roach.MAX_FOOD_ID) {
 			// collided FOOD item is taken by roach
-			game.roachAteFood(s2);		
+			game.roachAteFood(s1, s2);		
 		} else if (itemId == Roach.EMPTY_TRAP_ID) {
 			game.roachTrap(s1, s2);
 		} 
