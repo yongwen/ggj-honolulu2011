@@ -10,6 +10,7 @@ import com.golden.gamedev.*;
 import com.golden.gamedev.object.*;
 import com.golden.gamedev.object.sprite.*;
 import com.golden.gamedev.object.background.*;
+import com.golden.gamedev.engine.audio.JavaLayerMp3Renderer;
 
 // ROACH GAME
 import edu.hawaii.ics.roach.RoachGame;
@@ -31,14 +32,17 @@ public class MainMenu extends GameObject {
 
 	RoachGame		game;
 	
-	private boolean	isPlaying;
-
+	boolean			soundOn;
+	
 
 	public MainMenu(RoachGame parent) {
 		super(parent);
 
 		this.game = parent;
+		soundOn = true;
+
 	}
+	
 
 	public void initResources() {
 		titleImage = getImage("images/title.png");
@@ -57,11 +61,27 @@ public class MainMenu extends GameObject {
 		rightOptionSprite.setLoopAnim(true);
 		rightOptionSprite.getAnimationTimer().setDelay(160);
 		
-		isPlaying = false;
+		bsMusic.setBaseRenderer(new JavaLayerMp3Renderer());
+		playMusic("music/Intro.mp3");
+		
+		
 
 	}
 
 	public void update(long elapsedTime) {
+		
+		if( soundOn )
+		{
+			if( !bsSound.isActive() ) bsSound.setActive(true);
+			if( !bsMusic.isActive() ) bsMusic.setActive(true);
+		}
+		else
+		{
+			if( bsSound.isActive() ) bsSound.setActive(false);
+			if( bsMusic.isActive() ) bsMusic.setActive(false);
+		}
+		
+		
 		leftOptionSprite.update(elapsedTime);
 		rightOptionSprite.update(elapsedTime);
 
@@ -101,12 +121,7 @@ public class MainMenu extends GameObject {
 
 				// sound on/off
 				case 3:
-					bsSound.setActive(!bsSound.isActive());
-					bsMusic.setActive(!bsMusic.isActive());
-
-					if (bsMusic.isActive()) {
-						bsMusic.play(bsMusic.getLastAudioFile());
-					}
+					soundOn = !soundOn;
 				break;
 
 				// level
@@ -150,11 +165,6 @@ public class MainMenu extends GameObject {
 		leftOptionSprite.render(g, 145, y);
 		rightOptionSprite.render(g, 475, y);
 		
-		if( !isPlaying )
-		{
-			isPlaying = true;
-//			playSound("music/Intro-Amazing-Plan.wav");
-		}
 	}
 
 }

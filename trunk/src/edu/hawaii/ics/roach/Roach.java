@@ -185,7 +185,7 @@ public class Roach extends GameObject implements Comparator {
 			TEST_MAP = true;
 		}
 
-//		playMusic("music/Intro-Amazing Plan.mp3");
+		playMusic("music/InGame.mp3");
 		initLevel(levelData);
 
 		gameState = SHOW_TITLE;
