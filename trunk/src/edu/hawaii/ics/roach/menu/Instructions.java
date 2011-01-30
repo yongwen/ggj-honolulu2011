@@ -54,7 +54,8 @@ public class Instructions extends GameObject {
 		roachSprite.setAnimate(true);
 		roachSprite.setLoopAnim(true);
 
-		enemySprite = new AdvanceSprite(getImages("images/charset.png",12,7));
+//		enemySprite = new AdvanceSprite(getImages("images/charset.png",12,7));
+		enemySprite = new AdvanceSprite(getImages("images/roach.png",12,1));
 		enemySprite.setAnimationFrame(new int[] { 4, 5, 4, 3 });
 		enemySprite.getAnimationTimer().setDelay(160);
 		enemySprite.setAnimate(true);
@@ -95,7 +96,7 @@ public class Instructions extends GameObject {
 		switch (page) {
 	   		case 1:
 	            font.drawString(g, "This is you    :", 110, 170);
-	            roachSprite.render(g, 500, 170);
+	            roachSprite.render(g, 500, 150);
 
 	            font.drawString(g, "<SPACE> to Kill:", 110, 220);
 	            enemySprite.render(g, 500, 220);
