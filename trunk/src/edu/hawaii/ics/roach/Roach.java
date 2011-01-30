@@ -59,6 +59,7 @@ public class Roach extends GameObject implements Comparator {
 	
     private static final int MAX_TRAP_COUNT = 2;
 	private static final int MAX_TRAPPED_ROACH_COUNT = 3;
+	private static final int MAX_BLOCKS = 5;
 	
 	private int 	    nextLevelScore = LEVEL_SCORE_INCREMENT;
 	double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
@@ -86,6 +87,8 @@ public class Roach extends GameObject implements Comparator {
 	// increase by this number for each subsequent level
 	public static final int ROACHES_PER_LEVEL = 8;
 	private int			foodLeft;
+	
+	private int 		blocksLeft;
 	
 	/******************************** PLAY FIELD ********************************/
 
@@ -185,6 +188,8 @@ public class Roach extends GameObject implements Comparator {
 		initLevel(levelData);
 
 		gameState = SHOW_TITLE;
+		
+		blocksLeft = MAX_BLOCKS;
 	}
 
 	private void initLevel(MapData data) {
@@ -367,8 +372,9 @@ public class Roach extends GameObject implements Comparator {
 			player.setAnimate(false);
 
 			// key pressed event
-			if (keyPressed(KeyEvent.VK_W)) {
+			if (keyPressed(KeyEvent.VK_W) && blocksLeft>0) {
 				createBlock();
+				blocksLeft--;
 			} else if (keyPressed(KeyEvent.VK_D)) {
 				dropFood(player.getX(), player.getY());
 			} else if (keyPressed(KeyEvent.VK_E)) {
