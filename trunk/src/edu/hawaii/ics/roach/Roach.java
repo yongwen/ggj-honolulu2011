@@ -17,6 +17,8 @@ import edu.hawaii.ics.roach.enemylogic.*;
 import edu.hawaii.ics.roach.collision.*;
 import edu.hawaii.ics.roach.menu.HighScore;
 
+// 
+
 
 public class Roach extends GameObject implements Comparator {
 
@@ -825,10 +827,13 @@ public class Roach extends GameObject implements Comparator {
 			getCaught();
 			return;
 		}
-		else
+		else if( level>1 )
 		{
+			// make chance that the roach become zombie
 			// roach become zoombie, and chase player
-			becomeZombie(s1);
+			float zombieChance = (float)Math.random();
+			if(zombieChance < 0.2f )
+				becomeZombie(s1);
 		}
 		
 	}
