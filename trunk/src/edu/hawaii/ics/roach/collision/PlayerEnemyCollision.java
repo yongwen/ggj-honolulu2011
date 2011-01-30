@@ -41,9 +41,10 @@ public class PlayerEnemyCollision extends BasicCollisionGroup {
 		if (game.keyPressed(KeyEvent.VK_SPACE))
 		{
 			game.killRoach(s2);
-		} else	if (s2 instanceof Zombie)
+		} else if (s2 instanceof Zombie)
 		{
-		  game.getCaught();
+		   if ( Math.abs(s1.getX() - s2.getX()) < 10 && Math.abs(s1.getY() - s2.getY()) < 10 )
+		     game.getCaught();
 		}
 	}
 }
