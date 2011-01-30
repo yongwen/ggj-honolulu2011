@@ -114,11 +114,14 @@ public class GoTowardFood extends Enemy {
 		setDirection(dir);
 	}
 	
+	/*
+	 * Check if a Sprite is an active food or roach motel
+	 */
 	public Boolean isActiveFood(Sprite sprite) {
 		if(sprite == null) return false;
 		Boolean isActive = sprite.isActive();
 		int id = sprite.getID();
-		return (sprite != null && sprite.isActive() && sprite.getID() >= 0 && sprite.getID() <= 4);
+		return (sprite != null && sprite.isActive() && sprite.getID() >= 1 && sprite.getID() <= 4);
 	}
 	
 	private Sprite findClosestFood() {
