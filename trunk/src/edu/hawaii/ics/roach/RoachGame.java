@@ -32,7 +32,7 @@ public class RoachGame extends GameEngine {
 
 	public void initResources() {
 		// preload all images
-		getImage("images/title.jpg");
+		getImage("images/title.png");
 		getImages("images/lowertileset.png", 10, 5);
 		getImages("images/uppertileset.png", 11, 1);
 		getImages("images/coins.png", 3, 1);
