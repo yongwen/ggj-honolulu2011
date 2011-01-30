@@ -14,6 +14,8 @@ import edu.hawaii.ics.roach.Roach;
 import edu.hawaii.ics.roach.RoachSprite;
 
 public class GoTowardFood extends Enemy {
+	
+	private static final double SNIFF_DISTANCE = 50;
 
 	private Roach	game;
 	private Timer 	timer;
@@ -37,6 +39,7 @@ public class GoTowardFood extends Enemy {
 		Sprite closestFood = findClosestFood();
 		System.out.println("roach "+this+" is at ("+this.getX()+", "+this.getY()+")");
 		
+		
 		if(closestFood == null) {
 			// no more food?
 			System.out.println("no more food?");
@@ -44,8 +47,17 @@ public class GoTowardFood extends Enemy {
 			timer.setDelay(2000);
 			return;
 		}
+		
 		double horizDistance = this.getX() - closestFood.getX();
 		double vertDistance = this.getY() - closestFood.getY();
+		if(Math.sqrt(horizDistance*horizDistance + vertDistance*vertDistance) > SNIFF_DISTANCE) {
+			// food is too far away to sniff out
+			System.out.println("food too far away");
+			changeDirection(disallowDir);
+			timer.setDelay(2000);
+			return;
+		}
+		
 		System.out.println("vertDistance = "+vertDistance);
 		System.out.println("horizDistance = "+horizDistance);
 		if(Math.abs(vertDistance) > Math.abs(horizDistance)) {
@@ -81,6 +93,7 @@ public class GoTowardFood extends Enemy {
 			dir = Utility.getRandom(LEFT, DOWN);
 		}
 
+		System.out.println("changing direction of "+this+" to "+dir);
 		setDirection(dir);
 	}
 	
@@ -114,7 +127,7 @@ public class GoTowardFood extends Enemy {
 		if (timer.action(elapsedTime)) {
 			moveToFood(-1);
 
-			timer.setDelay(10);
+			//timer.setDelay(10);
 		}
 
 		super.update(elapsedTime);
