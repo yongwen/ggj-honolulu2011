@@ -153,7 +153,7 @@ public class MainMenu extends GameObject {
 		if( !isPlaying )
 		{
 			isPlaying = true;
-			playMusic("music/Intro-Amazing Plan.mp3");
+//			playSound("music/Intro-Amazing-Plan.wav");
 		}
 	}
 
