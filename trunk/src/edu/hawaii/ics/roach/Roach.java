@@ -60,9 +60,9 @@ public class Roach extends GameObject implements Comparator {
 	private int			life;
 	private int			score;
 	private int			scroll;
-
-
- /******************************** PLAY FIELD ********************************/
+	private int 		roachCount;
+	
+	/******************************** PLAY FIELD ********************************/
 
 	private PlayField		playfield;
 
@@ -288,6 +288,7 @@ public class Roach extends GameObject implements Comparator {
 				}
 				if (enemy != null) {
 					ENEMY_GROUP.add(enemy);
+					roachCount++;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -546,6 +547,10 @@ public class Roach extends GameObject implements Comparator {
 			font.drawString(g, "Time:" + time, 455, 440);
 			// draw score
 			font.drawString(g, "Score:" + String.valueOf(score), 10, 440);
+			
+			// draw # of enemies left
+			font.drawString(g, "Left: " + String.valueOf(roachCount), 250, 440);
+			
 			if (scroll > 0) {
 				// draw scroll
 				g.drawImage(upperImages[10], 13, 300, null);
@@ -840,12 +845,12 @@ public class Roach extends GameObject implements Comparator {
 		
 		int size = ENEMY_GROUP.getSize();
 		Sprite[] s = ENEMY_GROUP.getSprites();
-		int i=0;
-		for (;i < size;i++) {
+		roachCount = 0;
+		for (int i=0;i < size;i++) {
 			if (s[i].isActive())
-				break;
+				roachCount++;
 		}
-		if (i == size)
+		if (roachCount == 0)
 			youWin();
 	}
 
