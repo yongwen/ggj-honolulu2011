@@ -57,7 +57,7 @@ public class RoachGame extends GameEngine {
 		getImages("images/uppertileset.png", 7, 1);
 		getImages("images/coins.png", 3, 1);
 		getImages("images/player.png", 12, 1);
-		getImages("images/roach.png", 12, 1);
+		getImages("images/roach.png", 12, 2);
 		getImages("images/sparkle.png", 6, 1);
 		getImages("images/font.png", 16, 6);
 

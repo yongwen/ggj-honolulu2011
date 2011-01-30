@@ -70,7 +70,7 @@ public class MapBuilder extends Game implements ListSelectionListener {
 
 		lowerImages = getImages("images/lowertileset.png", 10, 5);
 		upperImages = getImages("images/uppertileset.png", 7, 1);
-		enemyImages = getImages("images/roach.png", 12, 1);
+		enemyImages = getImages("images/roach.png", 12, 2);
 
 		mainFrame = ((WindowedMode) bsGraphics).getFrame();
 		mainFrame.addWindowListener(new WindowAdapter() {
