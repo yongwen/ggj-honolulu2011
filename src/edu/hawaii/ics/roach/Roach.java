@@ -271,21 +271,22 @@ public class Roach extends GameObject implements Comparator {
 			try {
 				Enemy enemy = null;
 				switch (logicType) {
-					// stand still
-					case 0: enemy = new Enemy(this, image, posx, posy, speed, animationDelay); break;
-					// left-right patrol
-					case 1: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// up-down patrol
-					case 2: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// turn left always
-					case 3: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// turn right always
-					case 4: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// turner
-					case 5: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-					// zombie
-					case 6: enemy = new GoTowardFood(this, image, posx, posy, speed, animationDelay); break;
-				}
+				// stand still
+				case 0: enemy = new Enemy(this, image, posx, posy, speed, animationDelay); break;
+				// left-right patrol
+				case 1: enemy = new LeftRightPatrol(this, image, posx, posy, speed, animationDelay); break;
+				// up-down patrol
+				case 2: enemy = new UpDownPatrol(this, image, posx, posy, speed, animationDelay); break;
+				// turn left always
+				case 3: enemy = new TurnLeftAlways(this, image, posx, posy, speed, animationDelay); break;
+				// turn right always
+				case 4: enemy = new TurnRightAlways(this, image, posx, posy, speed, animationDelay); break;
+				// turner
+				case 5: enemy = new Turner(this, image, posx, posy, speed, animationDelay); break;
+				// zombie
+				case 6: enemy = new Zombie(this, image, posx, posy, speed, animationDelay, player); break;
+			}
+
 				if (enemy != null) {
 					ENEMY_GROUP.add(enemy);
 					roachCount++;
