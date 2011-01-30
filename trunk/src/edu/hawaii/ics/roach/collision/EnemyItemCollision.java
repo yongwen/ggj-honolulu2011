@@ -39,20 +39,13 @@ public class EnemyItemCollision extends BasicCollisionGroup {
     }
 
 	public void collided(Sprite s1, Sprite s2) {
-
-		switch (s2.getID()) {
-			case Roach.FOOD_1:
-			case Roach.FOOD_2:
-			case Roach.FOOD_3:
-			case Roach.FOOD_4:
-				// collided FOOD item is taken by roach
-				game.roachAteFood(s2);		
-				break;
-			case Roach.TRAP_ID: 
-				game.roachTrap(s1, s2);
-				break;
-		}
-
+		int itemId = s2.getID();
+		if  (itemId <= Roach.MAX_FOOD_ID) {
+			// collided FOOD item is taken by roach
+			game.roachAteFood(s2);		
+		} else if (itemId == Roach.EMPTY_TRAP_ID) {
+			game.roachTrap(s1, s2);
+		} 
 		
 		/*
 		switch (s2.getID()) {
