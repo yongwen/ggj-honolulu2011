@@ -154,14 +154,9 @@ public class Roach extends GameObject implements Comparator {
 		int w = 640, h = 480;
 		Background backgr = new Background(w, h);
 
-		// the background is drawn from 75, 67
-//		int offsetX = 75, offsetY = 67;
-//		backgr.setClip(offsetX, offsetY, w, h);
-
 		playfield = new PlayField(backgr);
 		playfield.setComparator(this);
 
-//		LOWER_GROUP = new SpriteGroup("Lower");
 		LOWER_GROUP  = playfield.addGroup(new SpriteGroup("Lower"));
 		UPPER_GROUP  = playfield.addGroup(new SpriteGroup("Upper"));
 		ENEMY_GROUP  = playfield.addGroup(new SpriteGroup("Enemy"));
@@ -559,8 +554,11 @@ public class Roach extends GameObject implements Comparator {
 			g.setColor(Color.BLACK);
 			g.fillRect(getWidth()-20, 0, 20, getHeight());
 			playfield.render(g);
+			
+			
 			// draw title
-			font.drawString(g, title, GameFont.CENTER, 0, 0, getWidth());
+			String inst = "<SPACE>StompRoach,<W/E>Special";
+			font.drawString(g, inst, GameFont.CENTER, 0, 0, getWidth());
 			// draw # of enemies left
 			
 			String livesString= "Lives" + String.valueOf(life);
@@ -710,7 +708,7 @@ public class Roach extends GameObject implements Comparator {
 	public void getCaught() {
 		life--;
 		gameState = LOSE;
-		loseTitle = "Oops! They got you..";
+		loseTitle = "Oops! You lost a life!";
 
 		if (TEST_MAP) {
 			finish();
