@@ -60,6 +60,7 @@ public class PlayerItemCollision extends BasicCollisionGroup {
 			s2.setActive(false);
 		}
 
+		/*
 		switch (s2.getID()) {
 			case KEY: 			game.pickKey(); break;
 			case EXIT_POINT: 	game.nextLevel(); break;
@@ -71,6 +72,7 @@ public class PlayerItemCollision extends BasicCollisionGroup {
 			case FREEZE:		game.freezeEnemy(true); break;
 			case BLOCK_SCROLL:	game.pickScroll(); break;
 		}
+		*/
 	}
 
 }

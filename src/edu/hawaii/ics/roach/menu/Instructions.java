@@ -103,11 +103,15 @@ public class Instructions extends GameObject {
 	            font.drawString(g, "Collect these  :", 110, 250);
 	            g.drawImage(key, 500, 250, null);
 
+	            /*
 	            font.drawString(g, "To get to this :", 110, 300);
 	            g.drawImage(exitDoor, 500, 300, null);
+				*/
+	            
+	            font.drawString(g, "Move key       :", 110, 300);
+	            g.drawImage(arrowKey, 470, 300, null);
 
-	            font.drawString(g, "Move key       :", 110, 350);
-	            g.drawImage(arrowKey, 470, 350, null);
+	            font.drawString(g, "press <SPACE> to kill:", 110, 350);
 
 				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 430, getWidth());
 			break;
