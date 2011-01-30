@@ -10,6 +10,7 @@ import com.golden.gamedev.object.collision.CollisionShape;
 // ROACH GAME
 import edu.hawaii.ics.roach.Roach;
 import edu.hawaii.ics.roach.Enemy;
+import edu.hawaii.ics.roach.enemylogic.Zombie;
 
 
 public class PlayerEnemyCollision extends BasicCollisionGroup {
@@ -36,12 +37,13 @@ public class PlayerEnemyCollision extends BasicCollisionGroup {
     }
 
 	public void collided(Sprite s1, Sprite s2) {
-		// game.getCaught();
+	
 		if (game.keyPressed(KeyEvent.VK_SPACE))
 		{
 			game.killRoach(s2);
+		} else	if (s2 instanceof Zombie)
+		{
+		  game.getCaught();
 		}
-		
-		game.getCaught();
 	}
 }
