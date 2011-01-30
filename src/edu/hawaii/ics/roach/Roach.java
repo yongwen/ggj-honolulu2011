@@ -51,18 +51,16 @@ public class Roach extends GameObject implements Comparator {
 		
 	// item constants
 	// see 'images/uppertileset.png'	
-	public static final int FOOD_1 		= 1;
-	public static final int FOOD_2 		= 2;
-	public static final int FOOD_3 		= 3;
-	public static final int FOOD_4 		= 4;
-	
-	public static final int TRAP_ID = 6;
+	public static final int MAX_FOOD_ID 	= 3;
+	public static final int EMPTY_TRAP_ID 	= 4;
+	public static final int FULL_TRAP_ID 	= 6;
 
 	// tile constants, see lowertileset.png
+	public static final int FLOOR_ID = 2;
 	public static final int BLOCK_ID = 33;
 	
     private static final int MAX_TRAP_COUNT = 3;
-	private static final int MAX_TRAPPED_ROACH_COUNT = 5;
+	private static final int MAX_TRAPPED_ROACH_COUNT = 1;
 	
 	private int 	    nextLevelScore = LEVEL_SCORE_INCREMENT;
 
@@ -248,14 +246,12 @@ public class Roach extends GameObject implements Comparator {
 				}
 			}
 
-			if (upper > 0 && upper != TRAP_ID) 
+			if (upper> 0 && upper <= MAX_FOOD_ID) 
 			{			
 				Sprite item = new Sprite(upperImages[upper],i*24,j*24);
 				item.setID(upper);
 				UPPER_GROUP.add(item);
-				
-				if (upper <= 3)
-					foodLeft++;
+				foodLeft++;
 			}
         }
 
@@ -443,7 +439,7 @@ public class Roach extends GameObject implements Comparator {
 			} else if (keyPressed(KeyEvent.VK_D)) {
 				dropFood(player.getX(), player.getY());
 			} else if (keyPressed(KeyEvent.VK_E)) {
-				dropTrap(player.getX(), player.getY());
+				dropTrap(EMPTY_TRAP_ID, player.getX(), player.getY());
 			}
 
 			// key down event
@@ -539,43 +535,6 @@ public class Roach extends GameObject implements Comparator {
 		}
 	}
 
-	private void dropTrap(double x, double y) {
-		System.err.println("droping "+trapCount);
-		if (trapCount < MAX_TRAP_COUNT) {
-		  Sprite trap = new Sprite(upperImages[TRAP_ID],x,y);
-		  trap.setID(TRAP_ID);
-		  trap.setDataID(new Integer(0));
-		  UPPER_GROUP.add(trap);	  
-		  trap.setActive(true);
-		  trapCount ++;
-		}
-	}
-
-
-	private void createBlock() {
-		// create blocking stone
-		int destX = (int) ((player.getX()+12) / 24),
-		    destY = (int) ((player.getY()+12) / 24);
-		switch (player.getDirection()) {
-			case RoachSprite.LEFT:  destX = (int) ((player.getX()+6) / 24) - 1; break;
-			case RoachSprite.RIGHT: destX = (int) ((player.getX()+18) / 24) + 1; break;
-			case RoachSprite.UP: 	destY = (int) ((player.getY()+10) / 24) - 1; break;
-			case RoachSprite.DOWN:  destY = (int) ((player.getY()+24) / 24) + 1; break;
-		}
-	
-		Sprite tile = getTileAt(destX, destY);
-		if (tile != null && isFloor(tile) &&
-			getObjectAt(destX, destY) == null) {
-			// create block
-			scroll--;
-			switchTile(tile, BLOCK_ID);
-	
-			playSound("sounds/block.wav");
-		} else {
-			// unable create block
-			playSound("sounds/scroll2.wav");
-		}
-	}
 
 
 /****************************************************************************/
@@ -927,19 +886,10 @@ public class Roach extends GameObject implements Comparator {
 
 	public void roachAteFood(Sprite s2) {
 		s2.setActive(false);
+		foodLeft --;
 		
-		foodLeft = 0;
-		
-		int size = UPPER_GROUP.getSize();
-		Sprite[] s = UPPER_GROUP.getSprites();
-		int i=0;
-		for (;i < size;i++) {
-			if (s[i].isActive() && s[i].getID() != TRAP_ID)
-				return;
-		}
-		
-		// no active food left
-		getCaught();		
+		if (foodLeft == 0)
+		  getCaught();		
 	}
 
 
@@ -968,7 +918,53 @@ public class Roach extends GameObject implements Comparator {
 		  s1.setActive(false);
 		  count ++;
 		  s2.setDataID((new Integer(count)));
+		} 
+		else
+		{
+			// switch trap to full trap
+			s2.setActive(false);
+			dropTrap(FULL_TRAP_ID, s1.getX(), s1.getY());
 		}
 		
 	}
+	
+	private void dropTrap(int trap_id, double x, double y) {
+		// System.err.println("droping "+trapCount);
+		if (trapCount < MAX_TRAP_COUNT) {
+		  Sprite trap = new Sprite(upperImages[trap_id],x,y);
+		  trap.setID(trap_id);
+		  trap.setDataID(new Integer(0));
+		  UPPER_GROUP.add(trap);	  
+		  trap.setActive(true);
+		  trapCount ++;
+		}
+	}
+
+
+	private void createBlock() {
+		// create blocking stone
+		int destX = (int) ((player.getX()+12) / 24),
+		    destY = (int) ((player.getY()+12) / 24);
+		switch (player.getDirection()) {
+			case RoachSprite.LEFT:  destX = (int) ((player.getX()+6) / 24) - 1; break;
+			case RoachSprite.RIGHT: destX = (int) ((player.getX()+18) / 24) + 1; break;
+			case RoachSprite.UP: 	destY = (int) ((player.getY()+10) / 24) - 1; break;
+			case RoachSprite.DOWN:  destY = (int) ((player.getY()+24) / 24) + 1; break;
+		}
+	
+		Sprite tile = getTileAt(destX, destY);
+		if (tile != null && isFloor(tile) &&
+			getObjectAt(destX, destY) == null) {
+			// create block
+			switchTile(tile, BLOCK_ID);
+			playSound("sounds/block.wav");
+		} else if (tile.getID() == BLOCK_ID) {
+			switchTile(tile, FLOOR_ID);
+			playSound("sounds/block.wav");
+		} else {
+			// unable create block
+			playSound("sounds/scroll2.wav");
+		}
+	}
+	
 }
