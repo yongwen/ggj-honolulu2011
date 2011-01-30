@@ -174,6 +174,7 @@ public class Roach extends GameObject implements Comparator {
 		player = new RoachSprite(this, roachImage, 100, 100);
 		player.setID(PLAYER_ID);
 		player.getAnimationTimer().setDelay(PLAYER_ANIMATION);
+//		player.setAnimationFrame(null);
 		playerSpeed = PLAYER_SPEED;
 		PLAYER_GROUP.add(player);
 
@@ -551,7 +552,7 @@ public class Roach extends GameObject implements Comparator {
 				font.drawString(g, String.valueOf(scroll), 10, 333);
 			}
 			// draw life
-			g.drawImage(roachImage[7], 13, 365, null);
+			g.drawImage(roachImage[0], 13, 365, null);
 			font.drawString(g, String.valueOf(life), 10, 398);
 		break;
 

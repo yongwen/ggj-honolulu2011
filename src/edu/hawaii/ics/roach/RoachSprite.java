@@ -40,10 +40,11 @@ public class RoachSprite extends AdvanceSprite {
 
 
 	public void update(long elapsedTime) {
-		if (arrow[LEFT]) 	moveX(-0.05*elapsedTime);
-		if (arrow[RIGHT]) 	moveX( 0.05*elapsedTime);
-		if (arrow[UP]) 		moveY(-0.05*elapsedTime);
-		if (arrow[DOWN]) 	moveY( 0.05*elapsedTime);
+		float moveSpeed = 0.15f;
+		if (arrow[LEFT]) 	moveX(- moveSpeed*elapsedTime);
+		if (arrow[RIGHT]) 	moveX( moveSpeed*elapsedTime);
+		if (arrow[UP]) 		moveY(- moveSpeed*elapsedTime);
+		if (arrow[DOWN]) 	moveY( moveSpeed*elapsedTime);
 		arrow[LEFT] 	= false;
 		arrow[RIGHT] 	= false;
 		arrow[UP] 		= false;
