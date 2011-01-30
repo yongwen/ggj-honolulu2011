@@ -48,7 +48,7 @@ public class Instructions extends GameObject {
 
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
 
-		roachSprite = new AdvanceSprite(getImages("images/roach.png",12,1));
+		roachSprite = new AdvanceSprite(getImages("images/player.png",2,1));
 		roachSprite.setAnimationFrame(new int[] { 4, 5, 4, 3 });
 		roachSprite.getAnimationTimer().setDelay(160);
 		roachSprite.setAnimate(true);
