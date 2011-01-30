@@ -67,7 +67,7 @@ public class MapBuilder extends Game implements ListSelectionListener {
 		} );
 
 		lowerImages = getImages("images/lowertileset.png", 10, 5);
-		upperImages = getImages("images/uppertileset.png", 5, 1);
+		upperImages = getImages("images/uppertileset.png", 7, 1);
 		enemyImages = getImages("images/roach.png", 12, 1);
 
 		mainFrame = ((WindowedMode) bsGraphics).getFrame();

@@ -123,7 +123,7 @@ public class Roach extends GameObject implements Comparator {
 
 	public void initResources() {
 		lowerImages = getImages("images/lowertileset.png", 10, 5);
-		upperImages = getImages("images/uppertileset.png", 5, 1);
+		upperImages = getImages("images/uppertileset.png", 7, 1);
 		coins = getImages("images/coins.png", 3, 1);
 		roachImage = getImages("images/player.png", 12, 1);
 
@@ -162,9 +162,9 @@ public class Roach extends GameObject implements Comparator {
 		} else {
 			levelData = game.testLevel;
 			TEST_MAP = true;
-			playMusic("music/music1.mid");
 		}
 
+//		playMusic("music/Intro-Amazing Plan.mp3");
 		initLevel(levelData);
 
 		gameState = SHOW_TITLE;
@@ -307,7 +307,6 @@ public class Roach extends GameObject implements Comparator {
 			data = new MapData();
 			data.load(bsIO.getStream(filename));
 
-			playMusic("music/music" + (index / 5 + 1) + ".mid");
         } catch (Exception e) {
 	        data = null;
 //            System.err.println("Failed to load map: "+filename);
@@ -476,8 +475,10 @@ public class Roach extends GameObject implements Comparator {
 		// INTRO SHOWING TITLE
 		case SHOW_TITLE:
 			if (timerTitle.action(elapsedTime) ||
-				keyPressed(KeyEvent.VK_ENTER)) {
+				keyPressed(KeyEvent.VK_ENTER)) 
+			{
 				gameState = PLAYING;
+//				playMusic("music/music" + (index / 5 + 1) + ".mid");
 			}
 		break;
 
@@ -535,7 +536,7 @@ public class Roach extends GameObject implements Comparator {
  /****************************************************************************/
 
 	public void render(Graphics2D g) {
-		g.setColor(Color.BLACK);
+		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		if (confirmExit) {
