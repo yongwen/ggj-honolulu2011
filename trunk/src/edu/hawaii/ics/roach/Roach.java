@@ -27,11 +27,17 @@ public class Roach extends GameObject implements Comparator {
 
  /*************************** PLAYER CONSTANTS *******************************/
 
-	public static final double 	PLAYER_SPEED 		= 0.033;
+	public static final double 	PLAYER_SPEED 		= 0.07;
 	public static final double 	PLAYER_TURBO_SPEED 	= 0.08;
 	public static final long 	PLAYER_ANIMATION 	= 140;
 	public static final int 	PLAYER_ID 			= 1000;
 
+	/*************************** PLAYER CONSTANTS *******************************/
+	
+	public static final double ENEMY_SPEED_EASY = 1.6;
+	public static final double ENEMY_SPEED_NORMAL = 2.0;
+	public static final double ENEMY_SPEED_HARD  = 2.8;
+	
 
  /******************************* GAME STATE *********************************/
 
@@ -246,11 +252,10 @@ public class Roach extends GameObject implements Comparator {
 			double posy = 10*24;
 			BufferedImage[] image = getImages("images/roach.png", 12, 1, charType*12, (charType*12)+11);
 
-			double ENEMY_SPEED = 1.0;
+			double ENEMY_SPEED = ENEMY_SPEED_NORMAL;
 			switch (game.level) {
-				case 0: ENEMY_SPEED = 0.8; break; // easy
-				case 1: ENEMY_SPEED = 1.0; break; // normal
-				case 2: ENEMY_SPEED = 1.4; break; // hard
+				case 0: ENEMY_SPEED = ENEMY_SPEED_EASY; break; // easy
+				case 2: ENEMY_SPEED = ENEMY_SPEED_HARD; break; // hard
 			}
 
 			double speed = 0;

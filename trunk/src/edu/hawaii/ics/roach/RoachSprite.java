@@ -40,24 +40,8 @@ public class RoachSprite extends AdvanceSprite {
 
 
 	public void update(long elapsedTime) {
-		float moveSpeed = 0.15f;
-		if (arrow[LEFT]) 	moveX(- moveSpeed*elapsedTime);
-		if (arrow[RIGHT]) 	moveX( moveSpeed*elapsedTime);
-		if (arrow[UP]) 		moveY(- moveSpeed*elapsedTime);
-		if (arrow[DOWN]) 	moveY( moveSpeed*elapsedTime);
-		arrow[LEFT] 	= false;
-		arrow[RIGHT] 	= false;
-		arrow[UP] 		= false;
-		arrow[DOWN] 	= false;
-
+		
 		super.update(elapsedTime);
-
-		// set last stepped tiles
-		lastSteppedTiles.clear();
-		lastSteppedTiles.addAll(steppedTiles);
-
-		// clear current stepped tiles
-		steppedTiles.clear();
 	}
 
 	protected void animationChanged(int oldStat, int oldDir,
