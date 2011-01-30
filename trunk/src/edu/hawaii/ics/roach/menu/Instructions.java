@@ -39,7 +39,7 @@ public class Instructions extends GameObject {
  /****************************************************************************/
 
 	public void initResources() {
-		titleImage = getImage("images/title.jpg");
+		titleImage = getImage("images/title.png");
 		key = getImages("images/uppertileset.png", 11, 1)[1];
 		exitDoor = getImages("images/uppertileset.png", 11, 1)[2];
 		scroll = getImages("images/uppertileset.png", 11, 1)[10];
