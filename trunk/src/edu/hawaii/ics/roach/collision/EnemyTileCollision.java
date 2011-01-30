@@ -25,7 +25,7 @@ public class EnemyTileCollision extends PlayerTileCollision {
     }
 	
 	public void collided(Sprite s1, Sprite s2) {
-		if (game.isFloor(s2)) {
+		if (game.isFloor(s2) || s2.getID() == 35) {
 			// step on floor
 			((RoachSprite) s1).stepOn(s2);
 

@@ -16,10 +16,12 @@ import edu.hawaii.ics.roach.RoachSprite;
 public class GoTowardFood extends Enemy {
 	
 	// Roaches must be within SNIFF_DISTANCE of food to go for it
-	private static final double SNIFF_DISTANCE = 50;
+	private static final double SNIFF_DISTANCE = 75;
 
 	private Roach	game;
 	private Timer 	timer;
+	
+	private static final boolean DEBUG = true;
 
 	public GoTowardFood(Roach game,
 						   BufferedImage[] image, double x, double y,
@@ -38,12 +40,12 @@ public class GoTowardFood extends Enemy {
 	private void moveToFood(int disallowDir) {
 		int dir = -1;
 		Sprite closestFood = findClosestFood();
-		//System.out.println("roach "+this+" is at ("+this.getX()+", "+this.getY()+")");
+		if(DEBUG) System.out.println("roach "+this+" is at ("+this.getX()+", "+this.getY()+")");
 		
 		
 		if(closestFood == null) {
 			// no more food?
-			//System.out.println("no more food?");
+			if(DEBUG) System.out.println("no more food?");
 			changeDirection(disallowDir);
 			timer.setDelay(2000);
 			return;
@@ -53,18 +55,18 @@ public class GoTowardFood extends Enemy {
 		double vertDistance = this.getY() - closestFood.getY();
 		if(Math.sqrt(horizDistance*horizDistance + vertDistance*vertDistance) > SNIFF_DISTANCE) {
 			// food is too far away to sniff out
-			//System.out.println("food too far away");
+			if(DEBUG) System.out.println("food too far away");
 			changeDirection(disallowDir);
 			timer.setDelay(2000);
 			return;
 		}
 		
-		//System.out.println("vertDistance = "+vertDistance);
-		//System.out.println("horizDistance = "+horizDistance);
+		if(DEBUG) System.out.println("vertDistance = "+vertDistance);
+		if(DEBUG) System.out.println("horizDistance = "+horizDistance);
 		if(Math.abs(vertDistance) > Math.abs(horizDistance)) {
 			if(vertDistance > 0) {
 				if(disallowDir != UP) {
-					//System.out.println("moving UP"); 
+					if(DEBUG) System.out.println("moving UP"); 
 					setDirection(UP); 
 					return;
 					}
@@ -73,7 +75,7 @@ public class GoTowardFood extends Enemy {
 				return;
 			} else { // vertDistance <= 0
 				if(disallowDir != DOWN) {
-					//System.out.println("moving DOWN");
+					if(DEBUG) System.out.println("moving DOWN");
 					setDirection(DOWN);
 					return;
 					}
@@ -84,7 +86,7 @@ public class GoTowardFood extends Enemy {
 		} else { // Math.abs(vertDistance) <= Math.abs(horizDistance)
 			if(horizDistance > 0) {
 				if(disallowDir != LEFT) {
-					//System.out.println("moving LEFT");
+					if(DEBUG) System.out.println("moving LEFT");
 					setDirection(LEFT);
 					return;
 					}
@@ -93,7 +95,7 @@ public class GoTowardFood extends Enemy {
 				return;
 			} else { //horizDistance <= 0
 				if(disallowDir != RIGHT) {
-					//System.out.println("moving RIGHT");
+					if(DEBUG) System.out.println("moving RIGHT");
 					setDirection(RIGHT);
 					return;
 					}
@@ -110,7 +112,7 @@ public class GoTowardFood extends Enemy {
 			dir = Utility.getRandom(LEFT, DOWN);
 		}
 
-		//System.out.println("changing direction of "+this+" to "+dir);
+		if(DEBUG) System.out.println("changing direction of "+this+" to "+dir);
 		setDirection(dir);
 	}
 	
@@ -138,9 +140,10 @@ public class GoTowardFood extends Enemy {
 			}
 			
 		}
-/*		if(closestFood == null) System.out.println("no more food!");
-		else System.out.println("closest food is "+closestFood+" at ("+closestFood.getX()+", "+closestFood.getY()+")");
-		*/
+		if(DEBUG) {
+			if(closestFood == null) System.out.println("no more food!");
+			else System.out.println("closest food is "+closestFood+" at ("+closestFood.getX()+", "+closestFood.getY()+")");
+		}
 		return closestFood;
 	}
 	
@@ -160,7 +163,7 @@ public class GoTowardFood extends Enemy {
 		// target direction and current direction must be different
 		moveToFood(getDirection());
 
-		timer.setDelay(300);
+		timer.setDelay(3000);
 	}
 	
 	private Sprite findLeastTargetedFood() {
