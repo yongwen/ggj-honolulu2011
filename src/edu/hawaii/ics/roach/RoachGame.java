@@ -67,7 +67,7 @@ public class RoachGame extends GameEngine {
  /****************************************************************************/
 
 	public static void main(String[] args) {
-		GameSettings settings = new GameSettings(RoachGame.class.getResource("images/title.jpg")) {
+		GameSettings settings = new GameSettings(RoachGame.class.getResource("images/title.png")) {
 			public void start() {
 				GameLoader game = new GameLoader();
 				game.setup(new RoachGame(), new Dimension(640,480),

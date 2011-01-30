@@ -32,7 +32,7 @@ public class Credits extends GameObject {
  /****************************************************************************/
 
 	public void initResources() {
-		titleImage = getImage("images/title.jpg");
+		titleImage = getImage("images/title.png");
 		creditsImage = getImage("images/credits.jpg");
 
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
