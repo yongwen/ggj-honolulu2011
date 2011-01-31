@@ -1,0 +1,3 @@
+Manifest-Version: 1.0
+Class-Path: javalayer.jar GTGE_add_ons.jar golden_0_2_3.jar
+Main-Class: edu.hawaii.ics.roach.RoachGame
