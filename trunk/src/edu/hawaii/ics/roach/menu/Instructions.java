@@ -20,7 +20,7 @@ public class Instructions extends GameObject {
 	GameFont		font;
 
 	AdvanceSprite	roachSprite, enemySprite;
-	BufferedImage	burger, burgers, fullPlate, block, arrowKey;
+	BufferedImage	burger, burgers, fullPlate, block, arrowKey, trap;
 
 	int				page = 1;
 
@@ -44,6 +44,7 @@ public class Instructions extends GameObject {
 		burger = getImages("images/uppertileset.png", 5, 1)[2];
 		fullPlate = getImages("images/uppertileset.png", 5, 1)[3];
 		block = getImages("images/lowertileset.png", 15, 5)[33];
+		trap = getImages("images/uppertileset.png", 15, 5)[4];
 		arrowKey = getImage("images/arrow.jpg");
 
 		font = fontManager.getFont(getImages("images/font.png", 16, 6));
@@ -110,15 +111,16 @@ public class Instructions extends GameObject {
 	            font.drawString(g, "<Arrow> to move:", 110, 370);
 	            g.drawImage(arrowKey, 500, 370, null);
 
-				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 440, getWidth());
+				font.drawString(g, "Press Enter for next page", GameFont.CENTER, 0, 440, getWidth());
 			break;
 
 			case 2:
 				
 	            font.drawString(g, "<W> to lay wall:", 110, 170);
-	            g.drawImage(block, 500, 179, null);
+	            g.drawImage(block, 500, 170, null);
 	            
-	            font.drawString(g, "<E> to drop trap", 110, 220);
+	            font.drawString(g, "<E> to drop trap:", 110, 220);
+	            g.drawImage(trap, 500, 220, null);
 
 				font.drawString(g, "Press Enter", GameFont.CENTER, 0, 440, getWidth());
 	        break;
