@@ -71,8 +71,7 @@ public class Credits extends GameObject {
 		font.drawString(g, "David Chin", GameFont.CENTER, 0, 350, getWidth());
 		font.drawString(g, "Gorm Lai", GameFont.CENTER, 0, 375, getWidth());
 		font.drawString(g, "Robert Puckett", GameFont.CENTER, 0, 400, getWidth());
-		font.drawString(g, "Andrew Wong", GameFont.CENTER, 0, 425, getWidth());
-		font.drawString(g, "Yongwen Xu", GameFont.CENTER, 0, 450, getWidth());
+		font.drawString(g, "Yongwen Xu", GameFont.CENTER, 0, 425, getWidth());
 		
 	}
 
