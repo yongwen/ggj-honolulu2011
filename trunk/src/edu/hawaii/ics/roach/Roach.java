@@ -815,11 +815,7 @@ public class Roach extends GameObject implements Comparator {
 		s2.setActive(false);
 		addCoin(200, s2.getX(), s2.getY());
 		
-		int size = ENEMY_GROUP.getSize();
-		Sprite[] s = ENEMY_GROUP.getSprites();
-		roachCount--;
-		if (roachCount == 0)
-			nextLevel();
+		removeRoach((Enemy)s2);
 	}
 
 
@@ -881,8 +877,7 @@ public class Roach extends GameObject implements Comparator {
 		int count = ((Integer)s2.getDataID()).intValue();
 		if (count < MAX_TRAPPED_ROACH_COUNT)
 		{
-		  s1.setActive(false);
-		  roachCount --;
+		  removeRoach((Enemy)s1);
 		  count ++;
 		  s2.setDataID((new Integer(count)));
 		} 
@@ -938,6 +933,14 @@ public class Roach extends GameObject implements Comparator {
             ENEMY_GROUP.add(enemy);
     }
 
+	public void removeRoach(Enemy enemy) {
+            ENEMY_GROUP.remove(enemy);
+            enemy.setActive(false);
+            roachCount--;
+    		if (roachCount == 0)
+    			nextLevel();
+    }
+	
     public int numRoaches() {
             return roachCount;
     }
