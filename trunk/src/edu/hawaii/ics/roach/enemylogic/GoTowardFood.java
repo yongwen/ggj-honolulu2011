@@ -21,7 +21,7 @@ public class GoTowardFood extends Enemy {
 	private Roach	game;
 	private Timer 	timer;
 	
-	private static final boolean DEBUG = true;
+	private static final boolean DEBUG = false;
 
 	public GoTowardFood(Roach game,
 						   BufferedImage[] image, double x, double y,
@@ -63,6 +63,7 @@ public class GoTowardFood extends Enemy {
 		
 		if(DEBUG) System.out.println("vertDistance = "+vertDistance);
 		if(DEBUG) System.out.println("horizDistance = "+horizDistance);
+		timer.setDelay(10);
 		if(Math.abs(vertDistance) > Math.abs(horizDistance)) {
 			if(vertDistance > 0) {
 				if(disallowDir != UP) {
