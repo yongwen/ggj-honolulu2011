@@ -85,7 +85,7 @@ public class Roach extends GameObject implements Comparator {
 	private int			scroll;
 	private int 		roachCount;
 	// increase by this number for each subsequent level
-	public static final int ROACHES_PER_LEVEL = 8;
+	public static final int ROACHES_PER_LEVEL = 4;
 	private int			foodLeft;
 	
 	private int 		blocksLeft;
