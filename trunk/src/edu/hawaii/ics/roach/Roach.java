@@ -27,8 +27,8 @@ public class Roach extends GameObject implements Comparator {
 	
  /*************************** PLAYER CONSTANTS *******************************/
 
-	public static final double 	PLAYER_SPEED 		= 0.07;
-	public static final double 	PLAYER_TURBO_SPEED 	= 0.08;
+	public static final double 	PLAYER_SPEED 		= 0.15;
+	public static final double 	PLAYER_TURBO_SPEED 	= 0.09;
 	public static final long 	PLAYER_ANIMATION 	= 140;
 	public static final int 	PLAYER_ID 			= 1000;
 
@@ -630,9 +630,10 @@ public class Roach extends GameObject implements Comparator {
 		}
 
 		playSound("sounds/coins.wav");
-		
+	/*	
 		if (this.score >= nextLevelScore)
 			nextLevel();
+			*/
 	}
 
 	public void nextLevel() {
@@ -881,6 +882,7 @@ public class Roach extends GameObject implements Comparator {
 		if (count < MAX_TRAPPED_ROACH_COUNT)
 		{
 		  s1.setActive(false);
+		  roachCount --;
 		  count ++;
 		  s2.setDataID((new Integer(count)));
 		} 
