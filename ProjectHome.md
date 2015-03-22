@@ -1,0 +1,1 @@
+Welcome to Global Game Jam Honolulu 2011.
